@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-الوظائف
+المستخدمين
 @endsection
 @section('css')
 <!-- Internal Data table css -->
@@ -16,7 +16,7 @@
   <div class="breadcrumb-header justify-content-between">
 	<div class="my-auto">
 		<div class="d-flex">
-			<h4 class="content-title mb-0 my-auto">الوظائف</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0"></span>
+			<h4 class="content-title mb-0 my-auto">المستخدمين</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0"></span>
 		</div>
 	</div>
   </div>
@@ -29,7 +29,7 @@
  		<div class="card mg-b-20">
  			<div class="card-header pb-0">
  				<div class="d-flex justify-content-between">
- 					<h4 class="card-title mg-b-0">الوظائف</h4>
+ 					<h4 class="card-title mg-b-0">المستخدمين</h4>
  				</div>
  			</div>
  			<div class="card-body">
@@ -38,18 +38,18 @@
  						<thead>
  							<tr>
  								<th class="border-bottom-0">الاسم</th>
+ 								<th class="border-bottom-0">البريد الالكتروني</th>
+ 								<th class="border-bottom-0">الحالة</th>
  								<th class="border-bottom-0">الصلاحيات</th>
  							</tr>
  						</thead>
  						<tbody>
-						 @foreach ($roles as $role)
+						 @foreach ($users as $user)
  							<tr>
- 								<td>{{$role->name}}</td>
- 								<td>
-                                     <a class="btn btn-success btn-sm" href="/roles/{{$role->id}}"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                     <a class="btn btn-primary btn-sm" href="/roles/{{$role->id}}/edit"><i class="fa fa-edit" aria-hidden="true"></i></a>
-                                     <a class="btn btn-danger btn-sm"  href="/roles/{{$role->id}}/edit"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                                 </td>
+ 								<td>{{$user->name}}</td>
+ 								<td>{{$user->email}}</td>
+ 								<td>{{$user->status}}</td>
+ 								<td></td>
  							</tr>
 						 @endforeach
  						</tbody>
@@ -59,8 +59,11 @@
  		</div>
  	</div>
  </div>
-</div>
-</div>
+				<!-- /row -->
+			</div>
+			<!-- Container closed -->
+		</div>
+		<!-- main-content closed -->
 @endsection
 @section('js')
 <!-- Internal Data tables -->

@@ -24,4 +24,5 @@ Route::post('/setting','SettingController@setting');
 Auth::routes();
 Route::get('/dashboard','DashboardController@dashboard');
 Route::post('/role_permissions','RoleController@role_permissions');
+Route::post('/user_permissions','UserController@user_permissions');
 Route::get('/{page}','SettingController@style');

@@ -18,9 +18,8 @@
 @endsection
 @section('content')
                 <!-- row opened -->
-<form action="/users/{{$user->id}}" method="post">
+<form action="/users" method="post">
  @csrf
- @method("PUT")
  <div class="row row-sm">
  	<div class="col-xl-8">
  		<div class="card mg-b-20">
@@ -32,14 +31,14 @@
  			<div class="card-body">
                 <div class="form-group">
                     <label for="">اسم المستخدم</label>
-                    <input type="text" name="name" class="form-control  @error('name') is-invalid @enderror" value="{{$user->name}}">
+                    <input type="text" name="name" class="form-control  @error('name') is-invalid @enderror" value="{{old('name')}}">
                     @error('name')
                     <small id="helpId" class="text-muted">{{$message}}</small>
                     @enderror
                 </div>
                 <div class="form-group">
                     <label for="">البريد الالكتروني</label>
-                    <input type="email" name="email" class="form-control  @error('email') is-invalid @enderror" value="{{$user->email}}">
+                    <input type="email" name="email" class="form-control  @error('email') is-invalid @enderror" value="{{old('email')}}">
                     @error('email')
                     <small id="helpId" class="text-muted">{{$message}}</small>
                     @enderror
@@ -59,11 +58,11 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="">الوظائف</label>
+                    <label for="">الادوار</label>
                     <hr>
                     @foreach ($roles as $k=> $role)
                     <label class="btn btn-light">
-                     <input type="checkbox" name="roles[]" {{in_array($k,$userRole)?'checked':''}} value="{{$role}}">
+                     <input type="checkbox" name="roles[]" value="{{$role}}">
                      {{$k}}
                     </label>
                     @endforeach

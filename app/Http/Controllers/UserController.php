@@ -6,6 +6,7 @@ use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Permission;
 
 class UserController extends Controller
 {
@@ -36,7 +37,8 @@ public function index(Request $request)
 */
 public function create()
 {
-    $roles = Role::pluck('name','name')->all();
+    $roles = Role::where('name','!=','SuperAdmin')->pluck('id','name')->toArray();
+    // dd($roles);
     return view('users.create',compact('roles'));
 }
 /**
@@ -70,8 +72,19 @@ public function store(Request $request)
 */
 public function show($id)
 {
-   $user = User::find($id);
-   return view('users.show',compact('user'));
+   $user=User::find($id);
+   $permissions=Permission::whereNotIn('id',$user->getPermissionsViaRoles()->pluck('id')->toArray())->get();
+   $userpermissions=$user->getAllPermissions()->pluck('id')->toArray();
+   return view('users.show',compact('user','permissions','userpermissions'));
+}
+public function user_permissions(Request $request)
+{
+  $this->validate($request,[
+      'user_id'=>'required',
+  ]);
+  $user=User::find($request->user_id);
+  $user->syncPermissions($request->permissions);
+  return back()->with('success','User Permission Updated');
 }
 /**
 * Show the form for editing the specified resource.
@@ -99,7 +112,7 @@ public function update(Request $request, $id)
      'roles' => 'required',
      'name' => 'required|string|max:255',
      'email' => 'required|string|email|max:255|unique:users,email,'.$id,
-     'password' => 'string|min:8|confirmed',
+     'password' => 'nullable|string|min:8|confirmed',
      ]);
      $user=User::find($id);
      $user->name=$request->name;

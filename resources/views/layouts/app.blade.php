@@ -4,7 +4,25 @@
 		<meta charset="UTF-8">
 		<meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		@include('layouts.head')
+        @include('layouts.head')
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@500&display=swap" rel="stylesheet">
+
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Lalezar&display=swap" rel="stylesheet">
+
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+       <link href="https://fonts.googleapis.com/css2?family=Rakkas&display=swap" rel="stylesheet">
+
+
+        <style>
+        body{
+            font-family: 'Tajawal', sans-serif;
+            font-family: 'Lalezar', cursive;
+            /* font-family: 'Rakkas', cursive; */
+          }
+
+        </style>
 	</head>
 
 	<body class="main-body app sidebar-mini">

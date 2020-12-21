@@ -59,7 +59,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="">الوظائف</label>
+                    <label for="">الادوار</label>
                     <hr>
                     @foreach ($roles as $k=> $role)
                     <label class="btn btn-light">

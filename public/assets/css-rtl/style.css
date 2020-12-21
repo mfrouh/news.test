@@ -82,7 +82,7 @@ License        :   Licensed under ThemeForest License
 */
 /* ######## FONT ######## */
 /* ############### FONTS IMPORT ############### */
-@import url("https://fonts.google.com/specimen/Lalezar?subset=arabic");
+@import url("./Vibes-Regular.ttf");
 /* ######## BOOTSTRAP ######## */
 /*Color variables*/
 /*gray variables*/
@@ -90,7 +90,7 @@ License        :   Licensed under ThemeForest License
 /*black variables*/
 /*shadow variables*/
 html {
-  font-family: 'Lalezar';
+  font-family: 'Vibes';
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
@@ -100,13 +100,14 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 
 body {
   margin: 0;
-  font-family: "lalezar";
+  font-family: "Vibes";
   font-size: 0.875rem;
   font-weight: 400;
   line-height: 1.5;
   color: #031b4e;
   text-align: right;
-  background-color: #ecf0fa; }
+  background-color: #ecf0fa;
+}
 
 [tabindex="-1"]:focus {
   outline: 0 !important; }
@@ -10178,7 +10179,7 @@ a.close.disabled {
 /* ############### PAGE LAYOUT STYLES ############### */
 /* ###### 6.3 Global  ###### */
 body {
-  font-family: "Roboto", sans-serif; }
+  font-family:"Lalezar" }
 
 .main-body, .main-dashboard {
   min-height: 100vh;
