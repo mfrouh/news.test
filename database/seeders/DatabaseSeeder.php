@@ -32,7 +32,12 @@ class DatabaseSeeder extends Seeder
         $permissions[]=Permission::create(['name' => 'publish article']);
         $permissions[]=Permission::create(['name' => 'unpublish article']);
         $role3->syncPermissions($permissions);
-
+        Category::create(['name'=>'رياضة']);
+        Category::create(['name'=>'فن']);
+        Category::create(['name'=>'سياسة']);
+        Category::create(['name'=>'اقتصاد']);
+        Category::create(['name'=>'ابراج']);
+        Category::create(['name'=>'شباب']);
         for ($i=0; $i <200 ; $i++) {
         $data= [
             'name' => 'Mohamed Frouh'.$i,
@@ -51,17 +56,13 @@ class DatabaseSeeder extends Seeder
         }
         if ($i!=1 && $i<100) {
             $user->assignRole($role3);
+            $user->categories()->sync([rand(1,6)]);
         }
         if ($i>=100) {
             $user->assignRole($role4);
         }
         }
-        Category::create(['name'=>'رياضة']);
-        Category::create(['name'=>'فن']);
-        Category::create(['name'=>'سياسة']);
-        Category::create(['name'=>'اقتصاد']);
-        Category::create(['name'=>'ابراج']);
-        Category::create(['name'=>'شباب']);
+
         Tag::create(['name'=>'name1']);
         Tag::create(['name'=>'name2']);
         Tag::create(['name'=>'name3']);

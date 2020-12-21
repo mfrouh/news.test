@@ -63,9 +63,9 @@
             <div class="card-body">
                 @foreach (auth()->user()->categories as $category)
                  <div class="form-check">
-                   <label class="form-check-label">
-                     <input type="checkbox" class="form-check-input" name="categories[]" value="{{$category->id}}" >
-                      {{$category->name}}
+                   <label class="btn btn-light">
+                     <input type="checkbox"   name="categories[]" value="{{$category->id}}" >
+                       {{$category->name}}
                    </label>
                  </div>
                  @endforeach

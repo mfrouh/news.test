@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
@@ -56,12 +57,20 @@ class ArticleController extends Controller
         $article->title=$request->title;
         $article->slug=$request->title;
         $article->content=$request->content;
+        $article->user_id=auth()->user()->id;
         if ($request->image) {
         $article->image=sorteimage('storage/articles/',$request->image);
         }
         $article->save();
         $article->categories()->sync($request->categories);
-        $article->tags()->sync([]);
+        $tags=explode(',',$request->tags);
+        $Ttags=array();
+        foreach ($tags as $key => $tag) {
+            $Ftag=Tag::where('name',$tag)->firstorcreate(['name'=>$tag]);
+            $Ftag->id;
+            $Ttags[]= $Ftag->id;
+        }
+        $article->tags()->sync($Ttags);
         return redirect('/articles')->with('success','Article Created Successfully');
     }
 
@@ -97,21 +106,29 @@ class ArticleController extends Controller
     public function update(Request $request, Article $article)
     {
         $this->validate($request,[
-            'image'=>'required|image',
-            'title'=>'require|min:20',
+            'image'=>'nullable|image',
+            'title'=>'required|min:20',
             'content'=>'required|min:100',
             'tags'=>'required',
             'categories'=>'required',
         ]);
         $article->title=$request->title;
         $article->slug=$request->title;
+        $article->user_id=auth()->user()->id;
         $article->content=$request->content;
         if ($request->image) {
             $article->image=sorteimage('storage/articles/',$request->image);
         }
         $article->save();
         $article->categories()->sync($request->categories);
-        $article->tags()->sync([]);
+        $tags=explode(',',$request->tags);
+        $Ttags=array();
+        foreach ($tags as $key => $tag) {
+            $Ftag=Tag::where('name',$tag)->firstorcreate(['name'=>$tag]);
+            $Ftag->id;
+            $Ttags[]= $Ftag->id;
+        }
+        $article->tags()->sync($Ttags);
         return redirect('/articles')->with('success','Article Updated Successfully');
     }
 

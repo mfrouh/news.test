@@ -75,19 +75,19 @@
 								</div>
 							</div>
 							<div class="dropdown main-profile-menu nav nav-item nav-link">
-								<a class="profile-user d-flex" href=""><img alt="" src="{{URL::asset('assets/img/faces/6.jpg')}}"></a>
+								<a class="profile-user d-flex" href=""><img alt="" src="{{URL::asset(auth()->user()->image)}}"></a>
 								<div class="dropdown-menu">
 									<div class="main-header-profile bg-primary p-3">
 										<div class="d-flex wd-100p">
-											<div class="main-img-user"><img alt="" src="{{URL::asset('assets/img/faces/6.jpg')}}" class=""></div>
+											<div class="main-img-user"><img alt="" src="{{URL::asset(auth()->user()->image)}}" class=""></div>
 											<div class="mr-3 my-auto">
 												<h6>{{auth()->user()->name}}</h6>
 											</div>
 										</div>
 									</div>
-									<a class="dropdown-item" href=""><i class="bx bx-user-circle"></i>Profile</a>
-									<a class="dropdown-item" href=""><i class="bx bx-cog"></i> Edit Profile</a>
-									<a class="dropdown-item" href="/settings"><i class="bx bx-slider-alt"></i> Account Settings</a>
+									<a class="dropdown-item" href="/dashboard"><i class="bx bx-user-circle"></i>الرئيسية</a>
+									<a class="dropdown-item" href="/change-password"><i class="bx bx-cog"></i> تغير كلمة السر</a>
+									<a class="dropdown-item" href="/profile-setting"><i class="bx bx-slider-alt"></i> الاعدادات</a>
 									<a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

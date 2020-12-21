@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-انشاء مقال
+تعديل مقال
 @endsection
 @section('css')
 <link href="{{URL::asset('assets/plugins/inputtags/inputtags.css')}}" rel="stylesheet">
@@ -10,7 +10,7 @@
   <div class="breadcrumb-header justify-content-between">
 	<div class="my-auto">
 		<div class="d-flex">
-			<h4 class="content-title mb-0 my-auto"> انشاء مقال</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0"></span>
+			<h4 class="content-title mb-0 my-auto"> تعديل مقال</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0"></span>
 		</div>
 	</div>
   </div>
@@ -18,34 +18,35 @@
 @endsection
 @section('content')
                 <!-- row opened -->
-<form action="/articles" method="post" enctype="multipart/form-data">
+<form action="/articles/{{$article->id}}" method="post" enctype="multipart/form-data">
  @csrf
+ @method('PUT')
  <div class="row row-sm">
  	<div class="col-xl-8">
  		<div class="card mg-b-20">
  			<div class="card-header pb-0">
  				<div class="d-flex justify-content-between">
- 					<h4 class="card-title mg-b-0">انشاء مقال</h4>
+ 					<h4 class="card-title mg-b-0">تعديل مقال</h4>
  				</div>
  			</div>
  			<div class="card-body">
                 <div class="form-group">
                     <label for="">عنوان المقال</label>
-                    <input type="text" name="title" class="form-control  @error('title') is-invalid @enderror" value="{{old('title')}}" placeholder="" aria-describedby="helpId">
+                    <input type="text" name="title" class="form-control  @error('title') is-invalid @enderror" value="{{$article->title}}" placeholder="" aria-describedby="helpId">
                     @error('title')
                     <small id="helpId" class="text-muted">{{$message}}</small>
                     @enderror
                 </div>
                 <div class="form-group">
                     <label for="">محتوي المقال</label>
-                    <textarea name="content" class="form-control @error('content') is-invalid @enderror"  rows="4" >{{old('content')}}</textarea>
+                    <textarea name="content" class="form-control @error('content') is-invalid @enderror"  rows="4" >{{$article->content}}</textarea>
                     @error('content')
                     <small id="helpId" class="text-muted">{{$message}}</small>
                     @enderror
                 </div>
                 <div class="form-group">
                     <label for="">كلمات لها علاقة</label>
-                    <input type="text" data-role="tagsinput" name="tags" value="{{old('tags')}}" class="form-control @error('tags') is-invalid @enderror"   >
+                    <input type="text" data-role="tagsinput" name="tags" class="form-control @error('tags') is-invalid @enderror" value="{{implode(",",$article->tags->pluck('name')->toArray())}}">
                     @error('tags')
                     <small id="helpId" class="text-muted">{{$message}}</small>
                     @enderror
@@ -63,8 +64,8 @@
             <div class="card-body">
                 @foreach (auth()->user()->categories as $category)
                  <div class="form-check">
-                   <label class="form-check-label">
-                     <input type="checkbox" class="form-check-input" name="categories[]" value="{{$category->id}}" >
+                   <label class="btn btn-light">
+                     <input type="checkbox" class="" name="categories[]" {{in_array($category->id,$article->categories->pluck('id')->toArray())?'checked':''}}  value="{{$category->id}}" >
                       {{$category->name}}
                    </label>
                  </div>
