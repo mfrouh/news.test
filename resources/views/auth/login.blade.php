@@ -29,14 +29,22 @@
 												 <form method="POST" action="{{ route('login') }}">
                                                    @csrf
 													<div class="form-group">
-														<label>البريد الالكتروني</label> <input class="form-control" placeholder="ادخل البريد الالكتروني" name="email" type="email" required>
-													</div>
+                                                        <label>البريد الالكتروني</label>
+                                                        <input class="form-control @error('email')  is-invalid @enderror" placeholder="ادخل البريد الالكتروني" name="email" type="email" required>
+                                                        @error('email')
+                                                        <small id="helpId" class="text-muted">{{$message}}</small>
+                                                        @enderror
+                                                    </div>
 													<div class="form-group">
-														<label>كلمة السر</label> <input class="form-control" placeholder="ادخل كلمة السر" name="password" type="password" required>
-													</div><button class="btn btn-main-primary btn-block">تسجيل دخول</button>
+                                                        <label>كلمة السر</label>
+                                                        <input class="form-control  @error('password')  is-invalid @enderror" placeholder="ادخل كلمة السر" name="password" type="password" required>
+                                                        @error('password')
+                                                        <small id="helpId" class="text-muted">{{$message}}</small>
+                                                        @enderror
+                                                    </div><button class="btn btn-main-primary btn-block">تسجيل دخول</button>
 												</form>
 												<div class="main-signin-footer mt-5">
-													<p><a href=""> نسيت كلمة السر</a></p>
+													<p><a href="/password/reset"> نسيت كلمة السر</a></p>
 													<p>ليس لديك حساب? <a href="{{ url('/register') }}">انشاء حساب</a></p>
 												</div>
 											</div>

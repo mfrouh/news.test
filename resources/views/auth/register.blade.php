@@ -22,24 +22,43 @@
 							<div class="row">
 								<div class="col-md-10 col-lg-10 col-xl-9 mx-auto">
 									<div class="card-sigin">
-										<div class="mb-5 d-flex"> <a href="{{ url('/' . $page='index') }}"><img src="{{URL::asset('assets/img/brand/favicon.png')}}" class="sign-favicon ht-40" alt="logo"></a><h1 class="main-logo1 ml-1 mr-0 my-auto tx-28">Va<span>le</span>x</h1></div>
+										<div class="mb-5 d-flex"> <a href="{{ url('/') }}"><img src="{{URL::asset('assets/img/brand/favicon.png')}}" class="sign-favicon ht-40" alt="logo"></a><h1 class="main-logo1 ml-1 mr-0 my-auto tx-28">Va<span>le</span>x</h1></div>
 										<div class="main-signup-header">
-											<h2 class="text-primary">Get Started</h2>
-											<h5 class="font-weight-normal mb-4">It's free to signup and only takes a minute.</h5>
+											<h2 class="text-primary">اهلا بك</h2>
 											 <form method="POST" action="{{ route('register') }}">
-                                               @csrf 
-												<div class="form-group">
-													<label>Firstname &amp; Lastname</label> <input class="form-control" placeholder="Enter your firstname and lastname" type="text">
-												</div>
-												<div class="form-group">
-													<label>Email</label> <input class="form-control" placeholder="Enter your email" type="text">
-												</div>
-												<div class="form-group">
-													<label>Password</label> <input class="form-control" placeholder="Enter your password" type="password">
-												</div><button class="btn btn-main-primary btn-block">Create Account</button>
+                                               @csrf
+                                               <div class="form-group">
+                                                <label for="">اسم المستخدم</label>
+                                                <input type="text" name="name" class="form-control  @error('name') is-invalid @enderror" value="{{old('name')}}">
+                                                @error('name')
+                                                <small id="helpId" class="text-muted">{{$message}}</small>
+                                                @enderror
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">البريد الالكتروني</label>
+                                                <input type="email" name="email" class="form-control  @error('email') is-invalid @enderror" value="{{old('email')}}">
+                                                @error('email')
+                                                <small id="helpId" class="text-muted">{{$message}}</small>
+                                                @enderror
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">كلمة السر</label>
+                                                <input type="password" name="password" class="form-control  @error('password') is-invalid @enderror" >
+                                                @error('password')
+                                                <small id="helpId" class="text-muted">{{$message}}</small>
+                                                @enderror
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="">تاكيد كلمة السر</label>
+                                                <input type="password" name="password_confirmation" class="form-control  @error('password') is-invalid @enderror" >
+                                                @error('password')
+                                                <small id="helpId" class="text-muted">{{$message}}</small>
+                                                @enderror
+                                            </div>
+                                                <button class="btn btn-main-primary btn-block">انشاء حساب</button>
 											</form>
 											<div class="main-signup-footer mt-5">
-												<p>Already have an account? <a href="{{ url('/' . $page='signin') }}">Sign In</a></p>
+												<p>لديك حساب <a href="{{ url('/' . $page='login') }}">تسجيل دخول</a></p>
 											</div>
 										</div>
 									</div>
