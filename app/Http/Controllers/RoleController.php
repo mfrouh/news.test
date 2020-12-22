@@ -121,7 +121,7 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        DB::table('roles')->where('id',$id)->delete();
+        Role::findById($id)->delete();
         return back()->with('success','تم حذف الوظيفة بنجاح');
     }
 }

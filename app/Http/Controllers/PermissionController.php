@@ -100,7 +100,7 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {
-        DB::table('permissions')->where('id',$id)->delete();
+        Permission::findById($id)->delete();
         return back()->with('success','تم حذف الصلاحية بنجاح');
     }
 }
