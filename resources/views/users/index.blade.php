@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-المستخدمين
+{{$title}}
 @endsection
 @section('css')
 <!-- Internal Data table css -->
@@ -16,7 +16,7 @@
   <div class="breadcrumb-header justify-content-between">
 	<div class="my-auto">
 		<div class="d-flex">
-			<h4 class="content-title mb-0 my-auto">المستخدمين</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0"></span>
+			<h4 class="content-title mb-0 my-auto">{{$title}}</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0"></span>
 		</div>
 	</div>
   </div>
@@ -29,7 +29,7 @@
  		<div class="card mg-b-20">
  			<div class="card-header pb-0">
  				<div class="d-flex justify-content-between">
- 					<h4 class="card-title mg-b-0">المستخدمين</h4>
+ 					<h4 class="card-title mg-b-0">{{$title}}</h4>
  				</div>
  			</div>
  			<div class="card-body">
@@ -49,7 +49,14 @@
  								<td>{{$user->name}}</td>
  								<td>{{$user->email}}</td>
  								<td>{{$user->getstatus()}}</td>
- 								<td></td>
+ 								<td>
+                                    @can('مشاهدة مستخدم')
+                                    <a class="btn btn-success btn-sm" href="/users/{{$user->id}}"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                    @endcan
+                                    @can('تعديل مستخدم')
+                                    <a class="btn btn-primary btn-sm" href="/users/{{$user->id}}/edit"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                                    @endcan
+                                 </td>
  							</tr>
 						 @endforeach
  						</tbody>

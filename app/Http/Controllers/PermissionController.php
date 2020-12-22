@@ -15,11 +15,11 @@ class PermissionController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['auth','role_or_permission:SuperAdmin|show permissions'])->only('index');
-        $this->middleware(['auth','role_or_permission:SuperAdmin|create permission'])->only(['create','store']);
-        $this->middleware(['auth','role_or_permission:SuperAdmin|show permission'])->only('show');
-        $this->middleware(['auth','role_or_permission:SuperAdmin|edit permission'])->only(['edit','update']);
-        $this->middleware(['auth','role_or_permission:SuperAdmin|delete permission'])->only('destroy');
+        $this->middleware(['auth','role_or_permission:SuperAdmin|:الصلاحيات'])->only('index');
+        $this->middleware(['auth','role_or_permission:SuperAdmin|:انشاء صلاحية'])->only(['create','store']);
+        $this->middleware(['auth','role_or_permission:SuperAdmin|:مشاهد صلاحية'])->only('show');
+        $this->middleware(['auth','role_or_permission:SuperAdmin|:تعديل صلاحية'])->only(['edit','update']);
+        $this->middleware(['auth','role_or_permission:SuperAdmin|:حذف صلاحية'])->only('destroy');
     }
     public function index()
     {

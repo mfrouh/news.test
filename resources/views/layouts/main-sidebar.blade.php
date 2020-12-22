@@ -22,16 +22,16 @@
 					<li class="slide">
 						<a class="side-menu__item" href="{{ url('/dashboard' ) }}"><span class="side-menu__label">الرئيسية</a>
                     </li>
-                   @can('show roles')
+                   @can('الوظائف')
                     <li class="slide">
                         <a class="side-menu__item" href="#" data-toggle="slide"><span class="side-menu__label">الوظائف</span><i class="angle fe fe-chevron-down"></i></a>
                         <ul class="slide-menu">
-                         @can('show roles')
+                         @can('الوظائف')
 					     <li class="slide">
 					     	<a class="side-menu__item" href="{{ url('/roles' ) }}"><span class="side-menu__label">الوظائف</a>
                          </li>
                          @endcan
-                         @can('create role')
+                         @can('انشاء وظيفة')
                          <li class="slide">
 					     	<a class="side-menu__item" href="{{ url('/roles/create' ) }}"><span class="side-menu__label">انشاء وظيفة</a>
                          </li>
@@ -39,16 +39,16 @@
                         </ul>
                     </li>
                     @endcan
-                    @can('show permissions')
+                    @can('الصلاحيات')
                     <li class="slide">
                         <a class="side-menu__item" href="#" data-toggle="slide"><span class="side-menu__label">الصلاحيات</span><i class="angle fe fe-chevron-down"></i></a>
                         <ul class="slide-menu">
-                         @can('show permissions')
+                         @can('الصلاحيات')
 					     <li >
 					     	<a class="side-menu__item" href="{{ url('/permissions' ) }}"><span class="side-menu__label">الصلاحيات</a>
                          </li>
                          @endcan
-                         @can('create permission')
+                         @can('انشاء صلاحية')
                          <li >
 					     	<a class="side-menu__item" href="{{ url('/permissions/create' ) }}"><span class="side-menu__label">انشاء صلاحية</a>
                          </li>
@@ -59,14 +59,29 @@
 					<li class="slide">
                         <a class="side-menu__item" href="#" data-toggle="slide"><span class="side-menu__label">المستخدمين</span><i class="angle fe fe-chevron-down"></i></a>
                         <ul class="slide-menu">
-                            @can('show users')
+                            @can('المستخدمين')
 					        <li>
                                <a class="side-menu__item"  href="{{ url('/users') }}"><span class="side-menu__label">المستخدمين</a>
 					        </li>
 					        @endcan
-                            @can('show writers')
+                            @can('الكتاب')
                             <li>
                                 <a class="side-menu__item" href="{{ url('/writers') }}"><span class="side-menu__label">الكتاب</a>
+                            </li>
+                            @endcan
+                            @can('المشتركين')
+                            <li>
+                                <a class="side-menu__item" href="{{ url('/subscribers') }}"><span class="side-menu__label">المشتركين</a>
+                            </li>
+                            @endcan
+                            @can('رؤساء الاقسام')
+                            <li>
+                                <a class="side-menu__item" href="{{ url('/supervisors') }}"><span class="side-menu__label">رؤساء الاقسام</a>
+                            </li>
+                            @endcan
+                            @can('انشاء مستخدم')
+                            <li>
+                                <a class="side-menu__item" href="{{ url('/users/create') }}"><span class="side-menu__label">انشاء مستخدم</a>
                             </li>
                             @endcan
                         </ul>
@@ -74,9 +89,14 @@
                     <li class="slide">
                         <a class="side-menu__item" href="#" data-toggle="slide"><span class="side-menu__label">الاقسام</span><i class="angle fe fe-chevron-down"></i></a>
                         <ul class="slide-menu">
-					       @can('show categories')
+					       @can('الاقسام')
 					       <li>
 					       	<a class="side-menu__item" href="{{ url('/categories' ) }}"><span class="side-menu__label">الاقسام</a>
+                           </li>
+                           @endcan
+                           @can('انشاء قسم')
+					       <li>
+					       	<a class="side-menu__item" href="{{ url('/categories/create' ) }}"><span class="side-menu__label">انشاء قسم</a>
                            </li>
                            @endcan
                         </ul>
@@ -85,24 +105,24 @@
 					<li class="slide">
                         <a class="side-menu__item" href="#" data-toggle="slide"><span class="side-menu__label">المقالات</span><i class="angle fe fe-chevron-down"></i></a>
                         <ul class="slide-menu">
-					       @can('show articles')
+					       @can('المقالات')
 					       <li>
 					       	<a class="side-menu__item" href="{{ url('/articles' ) }}"><span class="side-menu__label">المقالات</a>
 					       </li>
 					       @endcan
-					       @can('show myarticles')
+					       @can('مقالاتي')
 					       <li>
 					       	<a class="side-menu__item" href="{{ url('/myarticles' ) }}"><span class="side-menu__label">مقالاتي</a>
 					       </li>
 					       @endcan
-					       @can('create articles')
+					       @can('انشاء مقال')
 					       <li>
 					       	<a class="side-menu__item" href="{{ url('/articles/create' ) }}"><span class="side-menu__label">انشاء مقال</a>
 					       </li>
                            @endcan
                         </ul>
                     </li>
-					@can('website setting')
+					@can('تعديل الموقع')
 					<li class="slide">
 						<a class="side-menu__item" href="{{ url('/setting' ) }}"><span class="side-menu__label">الاعدادات</a>
 					</li>

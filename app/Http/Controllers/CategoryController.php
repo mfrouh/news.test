@@ -14,12 +14,15 @@ class CategoryController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['auth','permission:show categories'])->only('index');
-        $this->middleware(['auth','permission:create category'])->only(['create','store']);
-        $this->middleware(['auth','permission:show category'])->only('show');
-        $this->middleware(['auth','permission:edit category'])->only(['edit','update']);
-        $this->middleware(['auth','permission:delete category'])->only('destroy');
-    }
+        $this->middleware(['auth','permission:الاقسام'])->only('index');
+        $this->middleware(['auth','permission:انشاء قسم'])->only(['create','store']);
+        $this->middleware(['auth','permission:مشاهد قسم'])->only('show');
+        $this->middleware(['auth','permission:تعديل قسم'])->only(['edit','update']);
+        $this->middleware(['auth','permission:حذف قسم'])->only('destroy');
+        $this->middleware(['auth','permission:تفعيل قسم'])->only('active');
+        $this->middleware(['auth','permission:تعطيل قسم'])->only('inactive');
+
+     }
 
     public function index()
     {
@@ -35,6 +38,26 @@ class CategoryController extends Controller
     public function create()
     {
         return view('categories.create');
+    }
+    public function active(Request $request)
+    {
+        $this->validate($request,[
+            'id'=>'required|integer',
+        ]);
+        $user=Category::find($request->id);
+        $user->status="active";
+        $user->save();
+        return back()->with('success','تم تفعيل مستخدم');
+    }
+    public function inactive(Request $request)
+    {
+        $this->validate($request,[
+            'id'=>'required|integer',
+        ]);
+        $user=Category::find($request->id);
+        $user->status="inactive";
+        $user->save();
+        return back()->with('success','تم تعطيل مستخدم');
     }
 
     /**

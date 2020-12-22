@@ -22,9 +22,10 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         $role1=Role::create(['name' =>'SuperAdmin']);
-        $role2=Role::create(['name' =>'Admin']);
-        $role3=Role::create(['name' =>'Writer']);
-        $role4=Role::create(['name' =>'User']);
+        $role2=Role::create(['name' =>'ادمن']);
+        $role3=Role::create(['name' =>'كاتب']);
+        $role4=Role::create(['name' =>'مشترك']);
+        $role5=Role::create(['name' =>'رئيس قسم']);
         $permissions[]=Permission::create(['name' => 'show articles']);
         $permissions[]=Permission::create(['name' => 'edit article']);
         $permissions[]=Permission::create(['name' => 'create article']);

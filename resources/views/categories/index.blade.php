@@ -39,7 +39,8 @@
  							<tr>
  								<th class="border-bottom-0">الاسم</th>
  								<th class="border-bottom-0">الصورة</th>
- 								<th class="border-bottom-0">الحالة</th>
+                                <th class="border-bottom-0">الحالة</th>
+                                <th class="border-bottom-0">عدد المقالات</th>
  								<th class="border-bottom-0">الصلاحيات</th>
  							</tr>
  						</thead>
@@ -47,12 +48,22 @@
 						 @foreach ($categories as $category)
  							<tr>
  								<td>{{$category->name}}</td>
- 								<td>{{$category->image}}</td>
- 								<td>{{$category->getstatus()}}</td>
+                                 <td>
+                                    <img src="{{asset($category->image)}}" width="50px" height="50px" alt="">
+                                </td>
+                                <td>{{$category->getstatus()}}</td>
+                                <td>{{$category->articles->count()}}</td>
  								<td>
+                                     @can('مشاهدة قسم')
                                      <a class="btn btn-success btn-sm" href="/categories/{{$category->id}}"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                     @endcan
+                                     @can('تعديل قسم')
                                      <a class="btn btn-primary btn-sm" href="/categories/{{$category->id}}/edit"><i class="fa fa-edit" aria-hidden="true"></i></a>
-                                 </td>
+                                     @endcan
+                                     @can('حذف قسم')
+                                     <a class="btn btn-danger btn-sm" href="/categories/{{$category->id}}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                     @endcan
+                                </td>
  							</tr>
 						 @endforeach
  						</tbody>

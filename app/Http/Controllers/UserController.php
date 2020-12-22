@@ -17,18 +17,42 @@ class UserController extends Controller
 */
 public function __construct()
 {
-    $this->middleware(['auth','permission:show users'])->only('index');
-    $this->middleware(['auth','permission:create user'])->only(['create','store']);
-    $this->middleware(['auth','permission:show user'])->only('show');
-    $this->middleware(['auth','permission:edit user'])->only(['edit','update']);
-    $this->middleware(['auth','permission:delete user'])->only('destroy');
+    $this->middleware(['auth','permission:المستخدمين'])->only('index');
+    $this->middleware(['auth','permission:انشاء مستخدم'])->only(['create','store']);
+    $this->middleware(['auth','permission:مشاهدة مستخدم'])->only('show');
+    $this->middleware(['auth','permission:تعديل مستخدم'])->only(['edit','update']);
+    $this->middleware(['auth','permission:حذف مستخدم'])->only('destroy');
+    $this->middleware(['auth','permission:تفعيل مستخدم'])->only('active');
+    $this->middleware(['auth','permission:تعطيل مستخدم'])->only('inactive');
+    $this->middleware(['auth','permission:الكتاب'])->only('writers');
+    $this->middleware(['auth','permission:رؤساء الاقسام'])->only('supervisors');
+    $this->middleware(['auth','permission:المشتركين'])->only('subscribers');
+    $this->middleware(['auth','permission:انشاء كاتب'])->only(['createwrite','storewrite']);
 }
-public function index(Request $request)
+public function index()
 {
    $users = User::orderBy('id','DESC')->get();
-   return view('users.index',compact('users'));
+   $title='المستخدمين';
+   return view('users.index',compact('users','title'));
 }
-
+public function writers()
+{
+   $users = User::role('كاتب')->orderBy('id','DESC')->get();
+   $title='الكتاب';
+   return view('users.index',compact('users','title'));
+}
+public function supervisors()
+{
+   $users = User::role('رئيس قسم')->orderBy('id','DESC')->get();
+   $title='رؤساء الاقسام';
+   return view('users.index',compact('users','title'));
+}
+public function subscribers()
+{
+   $users = User::role('مشترك')->orderBy('id','DESC')->get();
+   $title='المشتركين';
+   return view('users.index',compact('users','title'));
+}
 
 /**
 * Show the form for creating a new resource.
@@ -38,15 +62,54 @@ public function index(Request $request)
 public function create()
 {
     $roles = Role::where('name','!=','SuperAdmin')->pluck('id','name')->toArray();
-    // dd($roles);
     return view('users.create',compact('roles'));
 }
+public function createwrite()
+{
+    return view('users.createwrite');
+}
+public function storewrite(Request $request)
+{
+     $this->validate($request, [
+        'name' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255|unique:users',
+        'password' => 'required|string|min:8|confirmed',
+     ]);
+
+     $input = $request->all();
+     $input['password'] = Hash::make($input['password']);
+     $user = User::create($input);
+     $user->assignRole('كاتب');
+     return redirect('/writers')
+     ->with('success','تم اضافة الكاتب بنجاح');
+}
+
 /**
 * Store a newly created resource in storage.
 *
 * @param  \Illuminate\Http\Request  $request
 * @return \Illuminate\Http\Response
 */
+public function active(Request $request)
+{
+    $this->validate($request,[
+        'id'=>'required|integer',
+    ]);
+    $user=User::find($request->id);
+    $user->status="active";
+    $user->save();
+    return back()->with('success','تم تفعيل مستخدم');
+}
+public function inactive(Request $request)
+{
+    $this->validate($request,[
+        'id'=>'required|integer',
+    ]);
+    $user=User::find($request->id);
+    $user->status="inactive";
+    $user->save();
+    return back()->with('success','تم تعطيل مستخدم');
+}
 public function store(Request $request)
 {
      $this->validate($request, [

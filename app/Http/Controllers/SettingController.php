@@ -9,7 +9,7 @@ class SettingController extends Controller
 {
    public function __construct()
    {
-       $this->middleware(['auth','permission:website setting'])->only(['index','setting']);
+       $this->middleware(['auth','permission:تعديل الموقع'])->only(['index','setting']);
    }
 
    public function index()

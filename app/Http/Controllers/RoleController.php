@@ -16,15 +16,15 @@ class RoleController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['auth','role_or_permission:SuperAdmin|show roles'])->only('index');
-        $this->middleware(['auth','role_or_permission:SuperAdmin|create role'])->only(['create','store']);
-        $this->middleware(['auth','role_or_permission:SuperAdmin|show role'])->only('show');
-        $this->middleware(['auth','role_or_permission:SuperAdmin|edit role'])->only(['edit','update']);
-        $this->middleware(['auth','role_or_permission:SuperAdmin|delete role'])->only('destroy');
+        $this->middleware(['auth','role_or_permission:SuperAdmin|:الوظائف'])->only('index');
+        $this->middleware(['auth','role_or_permission:SuperAdmin|:انشاء وظيفة'])->only(['create','store']);
+        $this->middleware(['auth','role_or_permission:SuperAdmin|:مشاهد وظيفة'])->only('show');
+        $this->middleware(['auth','role_or_permission:SuperAdmin|:تعديل وظيفة'])->only(['edit','update']);
+        $this->middleware(['auth','role_or_permission:SuperAdmin|:حذف وظيفة'])->only('destroy');
     }
     public function index()
     {
-       $roles=Role::all();
+       $roles=Role::where('name','!=','SuperAdmin')->get();
        return view('roles.index',compact('roles'));
     }
 
@@ -62,9 +62,12 @@ class RoleController extends Controller
     public function show($id)
     {
        $role=Role::findById($id);
+       if ($role->name!=="SuperAdmin") {
        $permissions=Permission::all();
        $rolepermissions=Role::findById($id)->permissions->pluck('id')->toArray();
        return view('roles.show',compact('role','permissions','rolepermissions'));
+       }
+       return abort('404');
     }
     public function role_permissions(Request $request)
     {
@@ -73,8 +76,11 @@ class RoleController extends Controller
           'role_id'=>'required',
       ]);
       $role=Role::findById($request->role_id);
+      if ($role->name!=="SuperAdmin") {
       $role->syncPermissions($request->permissions);
       return back()->with('success','Role Permission Updated');
+      }
+      return abort('404');
     }
     /**
      * Show the form for editing the specified resource.
@@ -85,7 +91,10 @@ class RoleController extends Controller
     public function edit($id)
     {
         $role=Role::findById($id);
+        if ($role->name!=="SuperAdmin") {
         return view('roles.edit',compact('role'));
+        }
+        return abort('404');
     }
 
     /**

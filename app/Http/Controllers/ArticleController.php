@@ -16,11 +16,13 @@ class ArticleController extends Controller
 
     public function __construct()
     {
-       $this->middleware(['auth','permission:show articles'])->only('index');
-       $this->middleware(['auth','permission:create article'])->only(['create','store']);
-       $this->middleware(['auth','permission:show article'])->only('show');
-       $this->middleware(['auth','permission:edit article'])->only(['edit','update']);
-       $this->middleware(['auth','permission:delete article'])->only('destroy');
+       $this->middleware(['auth','permission:المقالات'])->only('index');
+       $this->middleware(['auth','permission:انشاء مقال'])->only(['create','store']);
+       $this->middleware(['auth','permission:مشاهد مقال'])->only('show');
+       $this->middleware(['auth','permission:تعديل مقال'])->only(['edit','update']);
+       $this->middleware(['auth','permission:حذف مقال'])->only('destroy');
+       $this->middleware(['auth','permission:نشر مقال'])->only('publish');
+       $this->middleware(['auth','permission:الغاء نشر مقال'])->only('unpublish');
     }
     public function index()
     {
@@ -37,7 +39,26 @@ class ArticleController extends Controller
     {
        return view('articles.create');
     }
-
+    public function publish(Request $request)
+    {
+        $this->validate($request,[
+            'id'=>'required|integer',
+        ]);
+        $article=Article::find($request->id);
+        $article->status="publish";
+        $article->save();
+        return back()->with('success','تم نشر المقال');
+    }
+    public function unpublish(Request $request)
+    {
+        $this->validate($request,[
+            'id'=>'required|integer',
+        ]);
+        $article=Article::find($request->id);
+        $article->status="unpublish";
+        $article->save();
+        return back()->with('success','تم الغاء نشر المقال');
+    }
     /**
      * Store a newly created resource in storage.
      *
