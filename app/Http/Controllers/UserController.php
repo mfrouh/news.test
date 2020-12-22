@@ -200,5 +200,4 @@ public function destroy(Request $request)
    User::find($request->user_id)->delete();
    return redirect()->route('users.index')->with('success','تم حذف المستخدم بنجاح');
 }
-
 }

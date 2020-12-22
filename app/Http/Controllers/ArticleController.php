@@ -76,7 +76,7 @@ class ArticleController extends Controller
         ]);
         $article =new Article();
         $article->title=$request->title;
-        $article->slug=$request->title;
+        $article->slug=slug($request->title);
         $article->content=$request->content;
         $article->user_id=auth()->user()->id;
         if ($request->image) {
@@ -92,7 +92,7 @@ class ArticleController extends Controller
             $Ttags[]= $Ftag->id;
         }
         $article->tags()->sync($Ttags);
-        return redirect('/articles')->with('success','Article Created Successfully');
+        return redirect('/articles')->with('success','تم انشاء المقال بنجاح');
     }
 
     /**
@@ -134,7 +134,7 @@ class ArticleController extends Controller
             'categories'=>'required',
         ]);
         $article->title=$request->title;
-        $article->slug=$request->title;
+        $article->slug=slug($request->title);
         $article->user_id=auth()->user()->id;
         $article->content=$request->content;
         if ($request->image) {
@@ -150,7 +150,7 @@ class ArticleController extends Controller
             $Ttags[]= $Ftag->id;
         }
         $article->tags()->sync($Ttags);
-        return redirect('/articles')->with('success','Article Updated Successfully');
+        return redirect('/articles')->with('success','تم تعديل المقال بنجاح');
     }
 
     /**
@@ -162,6 +162,6 @@ class ArticleController extends Controller
     public function destroy(Article $article)
     {
         $article->delete();
-        return back()->with('success','Article Deleted Successfully');
+        return back()->with('success','تم حذف المقال بنجاح');
     }
 }

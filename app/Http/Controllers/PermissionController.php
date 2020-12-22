@@ -49,7 +49,7 @@ class PermissionController extends Controller
             'name'=>'required|unique:permissions'
         ]);
         Permission::create(['name'=>$request->name]);
-        return redirect('/permissions')->with('success','Created permission Successfully');
+        return redirect('/permissions')->with('success','تم انشاء الصلاحية بنجاح');
     }
 
     /**
@@ -89,7 +89,7 @@ class PermissionController extends Controller
             'name'=>'required|unique:permissions,name,'.$id,
         ]);
         DB::table('permissions')->where('id',$id)->update(['name'=>$request->name]);
-        return redirect('/permissions')->with('success','Updated permission Successfully');
+        return redirect('/permissions')->with('success','تم تعديل الصلاحية بنجاح');
     }
 
     /**
@@ -101,6 +101,6 @@ class PermissionController extends Controller
     public function destroy($id)
     {
         DB::table('permissions')->where('id',$id)->delete();
-        return back()->with('success','Deleted permission Successfully');
+        return back()->with('success','تم حذف الصلاحية بنجاح');
     }
 }

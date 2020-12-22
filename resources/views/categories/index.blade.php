@@ -61,7 +61,14 @@
                                      <a class="btn btn-primary btn-sm" href="/categories/{{$category->id}}/edit"><i class="fa fa-edit" aria-hidden="true"></i></a>
                                      @endcan
                                      @can('حذف قسم')
-                                     <a class="btn btn-danger btn-sm" href="/categories/{{$category->id}}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                     <a class="btn btn-danger btn-sm"  href="/categories/{{$category->id}}"
+                                        onclick="event.preventDefault();
+                                        document.getElementById('delete-category-{{$category->id}}').submit();"><i class="fa fa-trash" aria-hidden="true"></i>
+                                     </a>
+                                     <form id="delete-category-{{$category->id}}" action="/categories/{{$category->id}}" method="POST" class="d-none">
+                                        @csrf
+                                        @method("delete")
+                                     </form>
                                      @endcan
                                 </td>
  							</tr>

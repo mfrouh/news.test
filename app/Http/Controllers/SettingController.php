@@ -47,7 +47,7 @@ class SettingController extends Controller
     $setting->instagram=$request->instagram;
     $setting->youtube=$request->youtube;
     $setting->save();
-    return back()->with('success','Setting Updated Successfully');
+    return back()->with('success','تم تعديل الموقع بنجاح');
    }
    public function style($page)
    {

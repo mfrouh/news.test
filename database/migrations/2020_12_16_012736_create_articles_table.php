@@ -22,6 +22,7 @@ class CreateArticlesTable extends Migration
             $table->enum('status',['publish','unpublish'])->default('unpublish');
             $table->foreignid('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->timestamp('publish_time');
             $table->timestamps();
         });
     }

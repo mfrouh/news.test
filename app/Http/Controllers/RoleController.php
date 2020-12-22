@@ -50,7 +50,7 @@ class RoleController extends Controller
             'name'=>'required|unique:roles'
         ]);
         Role::create(['name'=>$request->name]);
-        return redirect('/roles')->with('success','Created Role Successfully');
+        return redirect('/roles')->with('success','تم انشاء الوظيفة بنجاح');
     }
 
     /**
@@ -78,7 +78,7 @@ class RoleController extends Controller
       $role=Role::findById($request->role_id);
       if ($role->name!=="SuperAdmin") {
       $role->syncPermissions($request->permissions);
-      return back()->with('success','Role Permission Updated');
+      return back()->with('success','تم تعديل صلاحيات الوظيفة بنجاح');
       }
       return abort('404');
     }
@@ -110,7 +110,7 @@ class RoleController extends Controller
             'name'=>'required|unique:roles,name,'.$id,
         ]);
         DB::table('roles')->where('id',$id)->update(['name'=>$request->name]);
-        return redirect('/roles')->with('success','Updated Role Successfully');
+        return redirect('/roles')->with('success','تم تعديل الوظيفة بنجاح');
     }
 
     /**
@@ -122,6 +122,6 @@ class RoleController extends Controller
     public function destroy($id)
     {
         DB::table('roles')->where('id',$id)->delete();
-        return back()->with('success','Deleted Role Successfully');
+        return back()->with('success','تم حذف الوظيفة بنجاح');
     }
 }

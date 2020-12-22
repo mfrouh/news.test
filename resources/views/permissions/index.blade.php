@@ -48,6 +48,14 @@
  								<td>
                                      <a class="btn btn-success btn-sm" href="/permissions/{{$permission->id}}"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                      <a class="btn btn-primary btn-sm" href="/permissions/{{$permission->id}}/edit"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                                     <a class="btn btn-danger btn-sm"  href="/permissions/{{$permission->id}}"
+                                        onclick="event.preventDefault();
+                                        document.getElementById('delete-permission-{{$permission->id}}').submit();"><i class="fa fa-trash" aria-hidden="true"></i>
+                                     </a>
+                                    <form id="delete-permission-{{$permission->id}}" action="/permissions/{{$permission->id}}" method="POST" class="d-none">
+                                        @csrf
+                                        @method("delete")
+                                    </form>
                                  </td>
  							</tr>
 						 @endforeach

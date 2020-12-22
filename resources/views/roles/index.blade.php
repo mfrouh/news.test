@@ -48,7 +48,14 @@
  								<td>
                                      <a class="btn btn-success btn-sm" href="/roles/{{$role->id}}"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                      <a class="btn btn-primary btn-sm" href="/roles/{{$role->id}}/edit"><i class="fa fa-edit" aria-hidden="true"></i></a>
-                                     <a class="btn btn-danger btn-sm"  href="/roles/{{$role->id}}/edit"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                     <a class="btn btn-danger btn-sm"  href="/roles/{{$role->id}}"
+                                        onclick="event.preventDefault();
+                                        document.getElementById('delete-role-{{$role->id}}').submit();"><i class="fa fa-trash" aria-hidden="true"></i>
+                                     </a>
+                                    <form id="delete-role-{{$role->id}}" action="/roles/{{$role->id}}" method="POST" class="d-none">
+                                        @csrf
+                                        @method("delete")
+                                    </form>
                                  </td>
  							</tr>
 						 @endforeach

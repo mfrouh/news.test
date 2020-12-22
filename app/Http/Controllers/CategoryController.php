@@ -76,11 +76,11 @@ class CategoryController extends Controller
         $category=new Category();
         $category->name=$request->name;
         if ($request->image) {
-            $category->image=sorteimage('storage/categories/',$request->category);
+            $category->image=sorteimage('storage/categories/',$request->image);
         }
         $category->status=$request->status;
         $category->save();
-        return redirect('/categories')->with('success','Category Created Successfully');
+        return redirect('/categories')->with('success','تم انشاء القسم بنجاح');
     }
 
     /**
@@ -121,11 +121,11 @@ class CategoryController extends Controller
         ]);
         $category->name=$request->name;
         if ($request->image) {
-            $category->image=sorteimage('storage/categories/',$request->category);
+            $category->image=sorteimage('storage/categories/',$request->image);
         }
         $category->status=$request->status;
         $category->save();
-        return redirect('/categories')->with('success','Category Updated Successfully');
+        return redirect('/categories')->with('success','تم تعديل القسم بنجاح');
     }
 
     /**
@@ -137,6 +137,6 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $category->delete();
-        return back()->with('success','Category Deleted Successfully');
+        return back()->with('success','تم حذف القسم بنجاح');
     }
 }

@@ -84,6 +84,11 @@
                                 <a class="side-menu__item" href="{{ url('/users/create') }}"><span class="side-menu__label">انشاء مستخدم</a>
                             </li>
                             @endcan
+                            @can('انشاء كاتب')
+                            <li>
+                                <a class="side-menu__item" href="{{ url('/writers/create') }}"><span class="side-menu__label">انشاء كاتب</a>
+                            </li>
+                            @endcan
                         </ul>
                     </li>
                     <li class="slide">

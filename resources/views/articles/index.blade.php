@@ -63,7 +63,24 @@
                                     <a href="/tag/{{$tag->id}}" class="btn btn-danger btn-sm">{{$tag->name}} </a>
                                     @endforeach
                                 </td>
- 								<td></td>
+ 								<td>
+                                    @can('مشاهدة مقال')
+                                    <a class="btn btn-success btn-sm" href="/articles/{{$article->id}}"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                    @endcan
+                                    @can('تعديل مقال')
+                                    <a class="btn btn-primary btn-sm" href="/articles/{{$category->id}}/edit"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                                    @endcan
+                                    @can('حذف مقال')
+                                    <a class="btn btn-danger btn-sm"  href="/articles/{{$article->id}}"
+                                        onclick="event.preventDefault();
+                                        document.getElementById('delete-article-{{$article->id}}').submit();"><i class="fa fa-trash" aria-hidden="true"></i>
+                                     </a>
+                                    <form id="delete-article-{{$article->id}}" action="/articles/{{$article->id}}" method="POST" class="d-none">
+                                        @csrf
+                                        @method("delete")
+                                    </form>
+                                    @endcan
+                                 </td>
  							</tr>
 						 @endforeach
  						</tbody>
