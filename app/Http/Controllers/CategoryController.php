@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -37,7 +38,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('categories.create');
+        $users=User::role('كاتب')->get();
+        return view('categories.create',compact('users'));
     }
     public function active(Request $request)
     {
@@ -69,9 +71,10 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'name'=>'required',
+            'name'=>'required|unique:categories',
             'image'=>'nullable|image',
             'status'=>'required|in:active,inactive',
+            'user_id'=>'required'
         ]);
         $category=new Category();
         $category->name=$request->name;
@@ -79,6 +82,7 @@ class CategoryController extends Controller
             $category->image=sorteimage('storage/categories/',$request->image);
         }
         $category->status=$request->status;
+        $category->user_id=$request->user_id;
         $category->save();
         return redirect('/categories')->with('success','تم انشاء القسم بنجاح');
     }
@@ -102,7 +106,8 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        return view('categories.edit',compact('category'));
+        $users=User::role('كاتب')->get();
+        return view('categories.edit',compact('category','users'));
     }
 
     /**
@@ -115,15 +120,17 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         $this->validate($request,[
-            'name'=>'required',
+            'name'=>'required|unique:categories,name,'.$category->id,
             'image'=>'nullable|image',
             'status'=>'required|in:active,inactive',
+            'user_id'=>'required'
         ]);
         $category->name=$request->name;
         if ($request->image) {
             $category->image=sorteimage('storage/categories/',$request->image);
         }
         $category->status=$request->status;
+        $category->user_id=$request->user_id;
         $category->save();
         return redirect('/categories')->with('success','تم تعديل القسم بنجاح');
     }

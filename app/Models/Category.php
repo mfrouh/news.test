@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Category extends Model
 {
@@ -18,6 +19,10 @@ class Category extends Model
     public function articles()
     {
     return $this->belongsToMany('App\Models\Article','article_category','category_id','article_id');
+    }
+    public function user()
+    {
+       return $this->belongsTo(User::class);
     }
     public function users()
     {

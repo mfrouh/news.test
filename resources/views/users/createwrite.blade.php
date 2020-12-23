@@ -57,6 +57,19 @@
                     <small id="helpId" class="text-muted">{{$message}}</small>
                     @enderror
                 </div>
+                <div class="form-group">
+                    <label for="">الاقسام</label>
+                    <hr>
+                    @foreach ($categories as $k=> $category)
+                    <label class="btn btn-light">
+                     <input type="checkbox" name="categories[]" value="{{$category->id}}">
+                     {{$category->name}}
+                    </label>
+                    @endforeach
+                    @error('categories')
+                    <small id="helpId" class="text-muted">{{$message}}</small>
+                    @enderror
+                </div>
                 </div>
                 <div class="form-group text-center">
                     <input type="submit" class="btn btn-primary " value="حفظ">

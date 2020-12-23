@@ -54,6 +54,17 @@
                     <small id="helpId" class="text-muted">{{$message}}</small>
                     @enderror
                 </div>
+                <div class="form-group">
+                    <label for="">رئيس القسم</label>
+                    <select name="user_id" class="form-control  @error('status') is-invalid @enderror">
+                        @foreach ($users as $user)
+                          <option value="{{$user->id}}" {{$user->id==$category->manager?'selected':''}}>{{$user->name}}-{{$user->email}}</option>
+                        @endforeach
+                    </select>
+                    @error('status')
+                    <small id="helpId" class="text-muted">{{$message}}</small>
+                    @enderror
+                </div>
                 <div class="form-group text-center">
                     <input type="submit" class="btn btn-primary" value="حفظ">
                 </div>

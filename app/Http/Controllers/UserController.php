@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
@@ -28,6 +29,8 @@ public function __construct()
     $this->middleware(['auth','permission:رؤساء الاقسام'])->only('supervisors');
     $this->middleware(['auth','permission:المشتركين'])->only('subscribers');
     $this->middleware(['auth','permission:انشاء كاتب'])->only(['createwrite','storewrite']);
+    $this->middleware(['auth','permission:حذف مستخدم من القسم'])->only('writercategory');
+
 }
 public function index()
 {
@@ -66,7 +69,8 @@ public function create()
 }
 public function createwrite()
 {
-    return view('users.createwrite');
+    $categories=Category::all();
+    return view('users.createwrite',compact('categories'));
 }
 public function storewrite(Request $request)
 {
@@ -74,14 +78,22 @@ public function storewrite(Request $request)
         'name' => 'required|string|max:255',
         'email' => 'required|string|email|max:255|unique:users',
         'password' => 'required|string|min:8|confirmed',
+        'categories'=>'required',
      ]);
 
      $input = $request->all();
      $input['password'] = Hash::make($input['password']);
      $user = User::create($input);
      $user->assignRole('كاتب');
+     $user->categories()->sync($request->categories);
      return redirect('/writers')
      ->with('success','تم اضافة الكاتب بنجاح');
+}
+public function writercategory(Request $request)
+{
+   $this->validate($request,['user_id'=>'required','category_id'=>'required']);
+   DB::table('user_category')->where('user_id',$request->user_id)->where('category_id',$request->category_id)->delete();
+   return back()->with('success','تم حذف المستخدم من القسم بنجاح');
 }
 
 /**

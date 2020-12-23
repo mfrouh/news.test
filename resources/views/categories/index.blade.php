@@ -40,6 +40,7 @@
  								<th class="border-bottom-0">الاسم</th>
  								<th class="border-bottom-0">الصورة</th>
                                 <th class="border-bottom-0">الحالة</th>
+                                <th class="border-bottom-0">رئيس القسم</th>
                                 <th class="border-bottom-0">عدد المقالات</th>
  								<th class="border-bottom-0">الصلاحيات</th>
  							</tr>
@@ -52,6 +53,7 @@
                                     <img src="{{asset($category->image)}}" width="50px" height="50px" alt="">
                                 </td>
                                 <td>{{$category->getstatus()}}</td>
+                                <td>{{$category->user?$category->user->name:"لا يوجد رئيس قسم"}}</td>
                                 <td>{{$category->articles->count()}}</td>
  								<td>
                                      @can('مشاهدة قسم')
