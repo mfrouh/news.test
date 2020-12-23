@@ -26,7 +26,7 @@ class RoleController extends Controller
     public function index()
     {
        $roles=Role::where('name','!=','SuperAdmin')->get();
-       return view('roles.index',compact('roles'));
+       return view('Backend.roles.index',compact('roles'));
     }
 
     /**
@@ -36,7 +36,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        return view('roles.create');
+        return view('Backend.roles.create');
     }
 
     /**
@@ -66,7 +66,7 @@ class RoleController extends Controller
        if ($role->name!=="SuperAdmin") {
        $permissions=Permission::all();
        $rolepermissions=Role::findById($id)->permissions->pluck('id')->toArray();
-       return view('roles.show',compact('role','permissions','rolepermissions'));
+       return view('Backend.roles.show',compact('role','permissions','rolepermissions'));
        }
        return abort('404');
     }
@@ -93,7 +93,7 @@ class RoleController extends Controller
     {
         $role=Role::findById($id);
         if ($role->name!=="SuperAdmin") {
-        return view('roles.edit',compact('role'));
+        return view('Backend.roles.edit',compact('role'));
         }
         return abort('404');
     }

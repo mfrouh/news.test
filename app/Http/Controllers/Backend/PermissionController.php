@@ -24,7 +24,7 @@ class PermissionController extends Controller
     public function index()
     {
        $permissions=Permission::all();
-       return view('permissions.index',compact('permissions'));
+       return view('Backend.permissions.index',compact('permissions'));
     }
 
     /**
@@ -34,7 +34,7 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        return view('permissions.create');
+        return view('Backend.permissions.create');
     }
 
     /**
@@ -61,7 +61,7 @@ class PermissionController extends Controller
     public function show($id)
     {
        $permission=Permission::findById($id);
-       return view('permissions.show',compact('permission'));
+       return view('Backend.permissions.show',compact('permission'));
     }
 
     /**
@@ -73,7 +73,7 @@ class PermissionController extends Controller
     public function edit($id)
     {
         $permission=Permission::findById($id);
-        return view('permissions.edit',compact('permission'));
+        return view('Backend.permissions.edit',compact('permission'));
     }
 
     /**

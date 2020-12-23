@@ -2,9 +2,15 @@
 
 namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
+use App\Models\Article;
+use App\Models\Category;
+use App\Models\Tag;
 use App\Models\User;
+use App\Models\Vote;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class DashboardController extends Controller
 {
@@ -14,15 +20,37 @@ class DashboardController extends Controller
     }
    public function dashboard()
    {
-      return view('dashboard.index');
+      $writers=User::role('كاتب')->count();
+      $users=User::count();
+      $supervisors=User::role('رئيس قسم')->count();
+      $subscribers=User::role('مشترك')->count();
+      $articles=Article::count();
+      $pubarticles=Article::publish()->count();
+      $unpubarticles=Article::unpublish()->count();
+      $tags=Tag::count();
+      $roles=Role::count();
+      $permissions=Permission::count();
+      $categories=Category::count();
+      $actcategories=Category::active()->count();
+      $inactcategories=Category::inactive()->count();
+      $votes=Vote::count();
+      $myarticles=auth()->user()->articles->count();
+      $mycategories=auth()->user()->mycategories->count();
+      return view('Backend.dashboard.index',
+      compact('writers','users','supervisors',
+      'subscribers','articles','tags','roles',
+      'permissions','categories','votes',
+      'myarticles','mycategories',
+      'pubarticles','unpubarticles',
+      'actcategories','inactcategories'));
    }
    public function change_password()
    {
-     return view('dashboard.change-password');
+     return view('Backend.dashboard.change-password');
    }
    public function profile_setting()
    {
-     return view('dashboard.profile-setting');
+     return view('Backend.dashboard.profile-setting');
    }
 
    public function post_change_password(Request $request)

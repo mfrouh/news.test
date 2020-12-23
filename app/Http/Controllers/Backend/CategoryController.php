@@ -28,7 +28,7 @@ class CategoryController extends Controller
     public function index()
     {
        $categories=Category::with(['articles','votes'])->get();
-       return view('categories.index',compact('categories'));
+       return view('Backend.categories.index',compact('categories'));
     }
 
     /**
@@ -39,7 +39,7 @@ class CategoryController extends Controller
     public function create()
     {
         $users=User::role('كاتب')->get();
-        return view('categories.create',compact('users'));
+        return view('Backend.categories.create',compact('users'));
     }
     public function active(Request $request)
     {
@@ -97,7 +97,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        return view('categories.show',compact('category'));
+        return view('Backend.categories.show',compact('category'));
     }
 
     /**
@@ -109,7 +109,7 @@ class CategoryController extends Controller
     public function edit(Category $category)
     {
         $users=User::role('كاتب')->get();
-        return view('categories.edit',compact('category','users'));
+        return view('Backend.categories.edit',compact('category','users'));
     }
 
     /**

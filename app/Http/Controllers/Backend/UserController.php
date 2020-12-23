@@ -37,25 +37,25 @@ public function index()
 {
    $users = User::orderBy('id','DESC')->get();
    $title='المستخدمين';
-   return view('users.index',compact('users','title'));
+   return view('Backend.users.index',compact('users','title'));
 }
 public function writers()
 {
    $users = User::role('كاتب')->orderBy('id','DESC')->get();
    $title='الكتاب';
-   return view('users.index',compact('users','title'));
+   return view('Backend.users.index',compact('users','title'));
 }
 public function supervisors()
 {
    $users = User::role('رئيس قسم')->orderBy('id','DESC')->get();
    $title='رؤساء الاقسام';
-   return view('users.index',compact('users','title'));
+   return view('Backend.users.index',compact('users','title'));
 }
 public function subscribers()
 {
    $users = User::role('مشترك')->orderBy('id','DESC')->get();
    $title='المشتركين';
-   return view('users.index',compact('users','title'));
+   return view('Backend.users.index',compact('users','title'));
 }
 
 /**
@@ -66,12 +66,12 @@ public function subscribers()
 public function create()
 {
     $roles = Role::where('name','!=','SuperAdmin')->pluck('id','name')->toArray();
-    return view('users.create',compact('roles'));
+    return view('Backend.users.create',compact('roles'));
 }
 public function createwrite()
 {
     $categories=Category::all();
-    return view('users.createwrite',compact('categories'));
+    return view('Backend.users.createwrite',compact('categories'));
 }
 public function storewrite(Request $request)
 {
@@ -94,7 +94,7 @@ public function categorywriter()
 {
    $users=User::role('كاتب')->get();
    $categories=auth()->user()->mycategories;
-   return view('users.categorywriter',compact('users','categories'));
+   return view('Backend.users.categorywriter',compact('users','categories'));
 }
 public function postcategorywriter(Request $request)
 {
@@ -170,7 +170,7 @@ public function show($id)
    $user=User::find($id);
    $permissions=Permission::whereNotIn('id',$user->getPermissionsViaRoles()->pluck('id')->toArray())->get();
    $userpermissions=$user->getAllPermissions()->pluck('id')->toArray();
-   return view('users.show',compact('user','permissions','userpermissions'));
+   return view('Backend.users.show',compact('user','permissions','userpermissions'));
 }
 public function user_permissions(Request $request)
 {
@@ -192,7 +192,7 @@ public function edit($id)
    $user = User::find($id);
    $roles = Role::pluck('name','name')->all();
    $userRole = $user->roles->pluck('name','name')->all();
-   return view('users.edit',compact('user','roles','userRole'));
+   return view('Backend.users.edit',compact('user','roles','userRole'));
 }
 /**
 * Update the specified resource in storage.

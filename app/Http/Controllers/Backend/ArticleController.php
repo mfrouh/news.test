@@ -28,7 +28,7 @@ class ArticleController extends Controller
     public function index()
     {
         $articles=Article::with('categories','tags')->get();
-        return view('articles.index',compact('articles'));
+        return view('Backend.articles.index',compact('articles'));
     }
 
     /**
@@ -39,11 +39,11 @@ class ArticleController extends Controller
     public function myarticles()
     {
         $articles=Article::with('categories','tags')->where('user_id',auth()->user()->id)->get();
-        return view('articles.index',compact('articles'));
+        return view('Backend.articles.index',compact('articles'));
     }
     public function create()
     {
-       return view('articles.create');
+       return view('Backend.articles.create');
     }
     public function publish(Request $request)
     {
@@ -109,7 +109,7 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        return view('articles.show',compact('article'));
+        return view('Backend.articles.show',compact('article'));
     }
 
     /**
@@ -120,7 +120,7 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-       return view('articles.edit',compact('article'));
+       return view('Backend.articles.edit',compact('article'));
     }
 
     /**
