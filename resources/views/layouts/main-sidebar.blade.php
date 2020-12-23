@@ -89,6 +89,11 @@
                                 <a class="side-menu__item" href="{{ url('/writers/create') }}"><span class="side-menu__label">انشاء كاتب</a>
                             </li>
                             @endcan
+                            @can('تعيين كاتب في القسم')
+                            <li>
+                                <a class="side-menu__item" href="{{ url('/categorywriter') }}"><span class="side-menu__label">تعيين كاتب في القسم</a>
+                            </li>
+                            @endcan
                         </ul>
                     </li>
                     <li class="slide">

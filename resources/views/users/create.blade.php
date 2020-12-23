@@ -62,7 +62,7 @@
                     <hr>
                     @foreach ($roles as $k=> $role)
                     <label class="btn btn-light">
-                     <input type="checkbox" name="roles[]" value="{{$role}}">
+                     <input type="radio" name="role" value="{{$role}}">
                      {{$k}}
                     </label>
                     @endforeach

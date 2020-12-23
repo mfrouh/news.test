@@ -25,18 +25,15 @@
 									<div class="main-card-signin d-md-flex bg-white">
 										<div class="wd-100p">
 											<div class="main-signin-header">
-												<h2>Forgot Password!</h2>
-												<h4>Please Enter Your Email</h4>
+												<h2>نسيت كلمة السر!</h2>
+												<h4>من فضلك ادخل البريد الالكتروني</h4>
 												<form class="d-inline" method="POST" action="{{ route('password.email') }}">
                                                    @csrf
 													<div class="form-group">
-														<label>Email</label> <input class="form-control" placeholder="Enter your email" type="text">
+														<label>البريد الالكتروني</label> <input class="form-control" placeholder="ادخل البريد الالكتروني" type="text">
 													</div>
-													<button class="btn btn-main-primary btn-block">Send</button>
+													<button class="btn btn-main-primary btn-block">ارسل</button>
 												</form>
-											</div>
-											<div class="main-signup-footer mg-t-20">
-												<p>Forget it, <a href="#"> Send me back</a> to the sign in screen.</p>
 											</div>
 										</div>
 									</div>

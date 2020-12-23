@@ -18,7 +18,7 @@ class CreateCategoriesTable extends Migration
             $table->string('image')->nullable();
             $table->string('name')->unique();
             $table->foreignid('user_id')->nullable();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->enum('status',['active','inactive'])->default('active');
             $table->timestamps();
         });

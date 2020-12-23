@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\Backend;
+use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -84,6 +84,8 @@ class CategoryController extends Controller
         $category->status=$request->status;
         $category->user_id=$request->user_id;
         $category->save();
+        $user=User::find($request->user_id);
+        $user->syncRoles('رئيس قسم');
         return redirect('/categories')->with('success','تم انشاء القسم بنجاح');
     }
 
@@ -132,6 +134,8 @@ class CategoryController extends Controller
         $category->status=$request->status;
         $category->user_id=$request->user_id;
         $category->save();
+        $user=User::find($request->user_id);
+        $user->syncRoles('رئيس قسم');
         return redirect('/categories')->with('success','تم تعديل القسم بنجاح');
     }
 

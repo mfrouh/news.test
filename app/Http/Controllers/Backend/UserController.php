@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Backend;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
@@ -30,6 +30,7 @@ public function __construct()
     $this->middleware(['auth','permission:المشتركين'])->only('subscribers');
     $this->middleware(['auth','permission:انشاء كاتب'])->only(['createwrite','storewrite']);
     $this->middleware(['auth','permission:حذف مستخدم من القسم'])->only('writercategory');
+    $this->middleware(['auth','permission:تعيين كاتب في القسم'])->only(['categorywriter','postcategorywriter']);
 
 }
 public function index()
@@ -84,11 +85,30 @@ public function storewrite(Request $request)
      $input = $request->all();
      $input['password'] = Hash::make($input['password']);
      $user = User::create($input);
-     $user->assignRole('كاتب');
+     $user->syncRoles('كاتب');
      $user->categories()->sync($request->categories);
      return redirect('/writers')
      ->with('success','تم اضافة الكاتب بنجاح');
 }
+public function categorywriter()
+{
+   $users=User::role('كاتب')->get();
+   $categories=auth()->user()->mycategories;
+   return view('users.categorywriter',compact('users','categories'));
+}
+public function postcategorywriter(Request $request)
+{
+   $this->validate($request, [
+      'user_id' => 'required',
+      'categories'=>'required',
+   ]);
+   $user=User::find($request->user_id);
+   // $user->categories()->sync($request->categories);
+   $user->categories()->attach($request->categories);
+   return redirect('/writers')
+   ->with('success','تم اضافة الكاتب في القسم بنجاح');
+}
+
 public function writercategory(Request $request)
 {
    $this->validate($request,['user_id'=>'required','category_id'=>'required']);
@@ -125,7 +145,7 @@ public function inactive(Request $request)
 public function store(Request $request)
 {
      $this->validate($request, [
-        'roles' => 'required',
+        'role' => 'required',
         'name' => 'required|string|max:255',
         'email' => 'required|string|email|max:255|unique:users',
         'password' => 'required|string|min:8|confirmed',
@@ -134,7 +154,7 @@ public function store(Request $request)
      $input = $request->all();
      $input['password'] = Hash::make($input['password']);
      $user = User::create($input);
-     $user->assignRole($request->input('roles'));
+     $user->syncRoles($request->input('role'));
      return redirect()->route('users.index')
      ->with('success','تم اضافة المستخدم بنجاح');
 }
@@ -159,7 +179,7 @@ public function user_permissions(Request $request)
   ]);
   $user=User::find($request->user_id);
   $user->syncPermissions($request->permissions);
-  return back()->with('success','User Permission Updated');
+  return back()->with('success','تم تعديل الصلاحيات بنجاح');
 }
 /**
 * Show the form for editing the specified resource.
@@ -184,7 +204,7 @@ public function edit($id)
 public function update(Request $request, $id)
 {
      $this->validate($request, [
-     'roles' => 'required',
+     'role' => 'required',
      'name' => 'required|string|max:255',
      'email' => 'required|string|email|max:255|unique:users,email,'.$id,
      'password' => 'nullable|string|min:8|confirmed',
@@ -197,7 +217,7 @@ public function update(Request $request, $id)
      }
      $user->save();
      DB::table('model_has_roles')->where('model_id',$id)->delete();
-     $user->assignRole($request->input('roles'));
+     $user->syncRoles($request->input('role'));
      return redirect()->route('users.index')
      ->with('success','تم تحديث معلومات المستخدم بنجاح');
 }

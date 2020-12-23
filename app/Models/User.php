@@ -49,6 +49,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Article::class);
     }
+    public function mycategories()
+    {
+        return $this->hasMany(Category::class);
+    }
     public function getstatus()
     {
       return  $this->status=="active"?'مفعل':'مغلق';

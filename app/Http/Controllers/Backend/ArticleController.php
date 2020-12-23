@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\Backend;
+use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\Tag;
 use Illuminate\Http\Request;
@@ -23,6 +23,7 @@ class ArticleController extends Controller
        $this->middleware(['auth','permission:حذف مقال'])->only('destroy');
        $this->middleware(['auth','permission:نشر مقال'])->only('publish');
        $this->middleware(['auth','permission:الغاء نشر مقال'])->only('unpublish');
+       $this->middleware(['auth','permission:مقالاتي'])->only('myarticles');
     }
     public function index()
     {
@@ -35,6 +36,11 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function myarticles()
+    {
+        $articles=Article::with('categories','tags')->where('user_id',auth()->user()->id)->get();
+        return view('articles.index',compact('articles'));
+    }
     public function create()
     {
        return view('articles.create');

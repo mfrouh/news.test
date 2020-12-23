@@ -47,6 +47,9 @@ class DatabaseSeeder extends Seeder
         $permissions[]=Permission::create(['name' => 'المشتركين']);
         $permissions[]=Permission::create(['name' => 'انشاء كاتب']);
         $permissions[]=Permission::create(['name' => 'تعديل الموقع']);
+        $permissions[]=Permission::create(['name' => 'مقالاتي']);
+        $permissions[]=Permission::create(['name' => 'حذف مستخدم من القسم']);
+        $permissions[]=Permission::create(['name' => 'تعيين كاتب في القسم']);
 
         Category::create(['name'=>'رياضة']);
         Category::create(['name'=>'فن']);
