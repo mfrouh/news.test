@@ -29,9 +29,6 @@ public function __construct()
     $this->middleware(['auth','permission:رؤساء الاقسام'])->only('supervisors');
     $this->middleware(['auth','permission:المشتركين'])->only('subscribers');
     $this->middleware(['auth','permission:انشاء كاتب'])->only(['createwrite','storewrite']);
-    $this->middleware(['auth','permission:حذف مستخدم من القسم'])->only('writercategory');
-    $this->middleware(['auth','permission:تعيين كاتب في القسم'])->only(['categorywriter','postcategorywriter']);
-
 }
 public function index()
 {
@@ -89,31 +86,6 @@ public function storewrite(Request $request)
      $user->categories()->sync($request->categories);
      return redirect('/writers')
      ->with('success','تم اضافة الكاتب بنجاح');
-}
-public function categorywriter()
-{
-   $users=User::role('كاتب')->get();
-   $categories=auth()->user()->mycategories;
-   return view('Backend.users.categorywriter',compact('users','categories'));
-}
-public function postcategorywriter(Request $request)
-{
-   $this->validate($request, [
-      'user_id' => 'required',
-      'categories'=>'required',
-   ]);
-   $user=User::find($request->user_id);
-   // $user->categories()->sync($request->categories);
-   $user->categories()->attach($request->categories);
-   return redirect('/writers')
-   ->with('success','تم اضافة الكاتب في القسم بنجاح');
-}
-
-public function writercategory(Request $request)
-{
-   $this->validate($request,['user_id'=>'required','category_id'=>'required']);
-   DB::table('user_category')->where('user_id',$request->user_id)->where('category_id',$request->category_id)->delete();
-   return back()->with('success','تم حذف المستخدم من القسم بنجاح');
 }
 
 /**

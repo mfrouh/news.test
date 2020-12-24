@@ -2,15 +2,6 @@
 @section('title')
 {{$category->name}}
 @endsection
-@section('css')
-<!-- Internal Data table css -->
-<link href="{{URL::asset('assets/plugins/datatable/css/dataTables.bootstrap4.min.css')}}" rel="stylesheet" />
-<link href="{{URL::asset('assets/plugins/datatable/css/buttons.bootstrap4.min.css')}}" rel="stylesheet">
-<link href="{{URL::asset('assets/plugins/datatable/css/responsive.bootstrap4.min.css')}}" rel="stylesheet" />
-<link href="{{URL::asset('assets/plugins/datatable/css/jquery.dataTables.min.css')}}" rel="stylesheet">
-<link href="{{URL::asset('assets/plugins/datatable/css/responsive.dataTables.min.css')}}" rel="stylesheet">
-<link href="{{URL::asset('assets/plugins/select2/css/select2.min.css')}}" rel="stylesheet">
-@endsection
 @section('page-header')
   <!-- breadcrumb -->
   <div class="breadcrumb-header justify-content-between">
@@ -52,37 +43,8 @@
  				</div>
  			</div>
  			<div class="card-body">
- 				<div class="table-responsive">
- 					<table id="example1" class="table key-buttons text-md-nowrap text-center">
- 						<thead>
- 							<tr>
- 								<th class="border-bottom-0">الاسم</th>
- 								<th class="border-bottom-0">البريد الالكتروني</th>
-                                <th class="border-bottom-0">المقالات</th>
-                                <th class="border-bottom-0">الصلاحيات</th>
- 							</tr>
- 						</thead>
- 						<tbody>
-						 @foreach ($category->users as $user)
- 							<tr>
- 								<td>{{$user->name}}</td>
- 								<td>{{$user->email}}</td>
- 								<td>{{$user->articles->count()}}</td>
- 								<td>
-                                    <a class="btn btn-danger btn-sm" href="/writercategory" onclick="event.preventDefault();
-                                    document.getElementById('writercategory').submit();"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                                     <form id="writercategory" action="/writercategory" method="POST" class="d-none">
-                                        @csrf
-                                        @method('delete')
-                                        <input type="hidden" name="category_id" value="{{$category->id}}">
-                                        <input type="hidden" name="user_id" value="{{$user->id}}">
-                                     </form>
-                                </td>
- 							</tr>
-						 @endforeach
- 						</tbody>
- 					</table>
- 				</div>
+                <a href="/categories/{{$category->id}}/writers" class="btn-success-gradient">الكتاب</a>
+                <a href="/categories/{{$category->id}}/articles" class="btn-warning-gradient">المقالات</a>
  			</div>
  		</div>
  	</div>
@@ -92,25 +54,4 @@
 			<!-- Container closed -->
 		</div>
 		<!-- main-content closed -->
-@endsection
-@section('js')
-<!-- Internal Data tables -->
-<script src="{{URL::asset('assets/plugins/datatable/js/jquery.dataTables.min.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/datatable/js/dataTables.dataTables.min.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/datatable/js/dataTables.responsive.min.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/datatable/js/responsive.dataTables.min.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/datatable/js/jquery.dataTables.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/datatable/js/dataTables.bootstrap4.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/datatable/js/dataTables.buttons.min.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/datatable/js/buttons.bootstrap4.min.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/datatable/js/jszip.min.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/datatable/js/pdfmake.min.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/datatable/js/vfs_fonts.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/datatable/js/buttons.html5.min.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/datatable/js/buttons.print.min.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/datatable/js/buttons.colVis.min.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/datatable/js/dataTables.responsive.min.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/datatable/js/responsive.bootstrap4.min.js')}}"></script>
-<!--Internal  Datatable js -->
-<script src="{{URL::asset('assets/js/table-data.js')}}"></script>
 @endsection

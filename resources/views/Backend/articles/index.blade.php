@@ -80,10 +80,10 @@
                                         @method("delete")
                                     </form>
                                     @endcan
-                                    @if ($category->status=="unpublish")
+                                    @if ($article->status=="unpublish")
                                     @can('نشر مقال')
-                                     <a class="btn btn-success float-left" href="/articles/publish"  onclick="event.preventDefault();
-                                     document.getElementById('publish-article').submit();">تفعيل القسم</a>
+                                     <a class="btn btn-success float-left btn-sm" href="/articles/publish"  onclick="event.preventDefault();
+                                     document.getElementById('publish-article').submit();">نشر مقال</a>
                                     <form id="publish-article" action="/articles/publish" method="POST" class="d-none">
                                        @csrf
                                        <input type="hidden" name="id" value="{{$article->id}}">
@@ -91,7 +91,7 @@
                                     @endcan
                                   @else
                                     @can('الغاء نشر مقال')
-                                     <a class="btn btn-danger float-left" href="/articles/unpublish" onclick="event.preventDefault();
+                                     <a class="btn btn-danger float-left btn-sm" href="/articles/unpublish" onclick="event.preventDefault();
                                      document.getElementById('unpublish-article').submit();">الغاء نشر مقال</a>
                                       <form id="unpublish-article" action="/articles/unpublish" method="POST" class="d-none">
                                          @csrf
