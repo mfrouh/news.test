@@ -22,7 +22,7 @@ class SupervisorController extends Controller
     }
     public function writers($id)
     {
-        if (in_array($id,auth()->user()->mycategories)) {
+        if (in_array($id,auth()->user()->mycategories->pluck('id')->toArray())) {
             $writers=Category::find($id)->users;
             $category=Category::find($id);
             return view('Backend.users.writers',compact('writers','category'));
@@ -32,7 +32,7 @@ class SupervisorController extends Controller
     }
     public function articles($id)
     {
-        if (in_array($id,auth()->user()->articles)) {
+        if (in_array($id,auth()->user()->mycategories->pluck('id')->toArray())) {
             $articles=Category::find($id)->articles;
             return view('Backend.articles.index',compact('articles'));
         }else {
@@ -42,7 +42,13 @@ class SupervisorController extends Controller
     public function createwrite()
     {
         $categories=auth()->user()->mycategories;
-        return view('Backend.users.createwrite',compact('categories'));
+        if ($categories->count()!=0) {
+            return view('Backend.supervisor.createwrite',compact('categories'));
+        }
+        else
+        {
+            return abort('404');
+        }
     }
 
     public function storewrite(Request $request)
@@ -59,7 +65,7 @@ class SupervisorController extends Controller
          $user = User::create($input);
          $user->syncRoles('كاتب');
          $user->categories()->sync($request->categories);
-         return redirect('/writers')
+         return back()
          ->with('success','تم اضافة الكاتب بنجاح');
     }
 
@@ -79,7 +85,7 @@ class SupervisorController extends Controller
        $user=User::find($request->user_id);
        $user->categories()->detach($request->categories);
        $user->categories()->attach($request->categories);
-       return redirect('/writers')
+       return back()
        ->with('success','تم اضافة الكاتب في القسم بنجاح');
     }
 

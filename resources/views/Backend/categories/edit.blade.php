@@ -58,7 +58,7 @@
                     <label for="">رئيس القسم</label>
                     <select name="user_id" class="form-control  @error('status') is-invalid @enderror">
                         @foreach ($users as $user)
-                          <option value="{{$user->id}}" {{$user->id==$category->manager?'selected':''}}>{{$user->name}}-{{$user->email}}</option>
+                          <option value="{{$user->id}}" {{$user->id==$category->user_id?'selected':''}}>{{$user->name}}-{{$user->email}}</option>
                         @endforeach
                     </select>
                     @error('status')

@@ -21,9 +21,10 @@ Route::resource('/categories','Backend\CategoryController');
 Route::resource('/articles','Backend\ArticleController');
 Route::post('/role_permissions','Backend\RoleController@role_permissions');
 Route::post('/user_permissions','Backend\UserController@user_permissions');
-// setting
+// setting website
 Route::get('/setting','Backend\SettingController@index');
 Route::post('/setting','Backend\SettingController@setting');
+// personal data
 Route::get('/change-password','Backend\DashboardController@change_password');
 Route::post('/change-password','Backend\DashboardController@post_change_password');
 Route::get('/profile-setting','Backend\DashboardController@profile_setting');
@@ -38,12 +39,17 @@ Route::get('/supervisors','Backend\UserController@supervisors');
 Route::get('/subscribers','Backend\UserController@subscribers');
 
 Route::get('/myarticles','Backend\ArticleController@myarticles');
-Route::delete('/writercategory','Backend\UserController@writercategory');
+Route::delete('/writercategory','Backend\SupervisorController@writercategory');
 Route::post('/categories/active','Backend\CategoryController@active');
 Route::post('/categories/inactive','Backend\CategoryController@inactive');
-Route::post('/articles/publish','Backend\ArticleController@publish');
-Route::post('/articles/unpublish','Backend\ArticleController@unpublish');
+Route::get('/categories/{id}/articles','Backend\SupervisorController@articles');
+Route::get('/categories/{id}/writers','Backend\SupervisorController@writers');
 Route::get('/categorywriter','Backend\SupervisorController@categorywriter');
 Route::post('/categorywriter','Backend\SupervisorController@postcategorywriter');
+Route::get('/categories/writers/create','Backend\SupervisorController@createwrite');
+Route::post('/categories/writers','Backend\SupervisorController@storewrite');
+Route::post('/articles/publish','Backend\ArticleController@publish');
+Route::post('/articles/unpublish','Backend\ArticleController@unpublish');
+
 Auth::routes();
 Route::get('/{page}','Backend\SettingController@style');

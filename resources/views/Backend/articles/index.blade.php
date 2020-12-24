@@ -50,7 +50,7 @@
  							<tr>
  								<td>{{$article->title}}</td>
                                  <td>
-                                    <img src="{{$article->image}}" width="37px" height="37px">
+                                    <img src="{{asset($article->image)}}" width="37px" height="37px">
                                  </td>
  								<td>{{$article->getstatus()}}</td>
                                 <td>

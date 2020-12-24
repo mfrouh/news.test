@@ -56,6 +56,7 @@
                        </ul>
                     </li>
                     @endcan
+
 					<li class="slide">
                         <a class="side-menu__item" href="#" data-toggle="slide"><span class="side-menu__label">المستخدمين</span><i class="angle fe fe-chevron-down"></i></a>
                         <ul class="slide-menu">
@@ -89,6 +90,11 @@
                                 <a class="side-menu__item" href="{{ url('/writers/create') }}"><span class="side-menu__label">انشاء كاتب</a>
                             </li>
                             @endcan
+                            @can('انشاء كاتب في القسم')
+                            <li>
+                                <a class="side-menu__item" href="{{ url('/categories/writers/create') }}"><span class="side-menu__label">انشاء كاتب في القسم</a>
+                            </li>
+                            @endcan
                             @can('تعيين كاتب في القسم')
                             <li>
                                 <a class="side-menu__item" href="{{ url('/categorywriter') }}"><span class="side-menu__label">تعيين كاتب في القسم</a>
@@ -103,6 +109,13 @@
 					       <li>
 					       	<a class="side-menu__item" href="{{ url('/categories' ) }}"><span class="side-menu__label">الاقسام</a>
                            </li>
+                           @endcan
+                           @can("اقسامي")
+                           @foreach (auth()->user()->mycategories as $category)
+					       <li>
+					       	<a class="side-menu__item" href="/categories/{{$category->id}}"><span class="side-menu__label">{{$category->name}}</a>
+                           </li>
+                           @endforeach
                            @endcan
                            @can('انشاء قسم')
 					       <li>

@@ -43,8 +43,8 @@
  				</div>
  			</div>
  			<div class="card-body">
-                <a href="/categories/{{$category->id}}/writers" class="btn-success-gradient">الكتاب</a>
-                <a href="/categories/{{$category->id}}/articles" class="btn-warning-gradient">المقالات</a>
+                <a href="/categories/{{$category->id}}/writers" class="btn btn-success-gradient">الكتاب</a>
+                <a href="/categories/{{$category->id}}/articles" class="btn btn-warning-gradient">المقالات</a>
  			</div>
  		</div>
  	</div>

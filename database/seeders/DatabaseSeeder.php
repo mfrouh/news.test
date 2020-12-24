@@ -23,10 +23,10 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
         $role1=Role::create(['name' =>'SuperAdmin']);
         $role2=Role::create(['name' =>'ادمن']);
-        $role3=Role::create(['name' =>'كاتب']);
-        $role4=Role::create(['name' =>'مشترك']);
-        $role5=Role::create(['name' =>'رئيس قسم']);
-        $role6=Role::create(['name' =>'رئيس التحرير']);
+        $role3=Role::create(['name' =>'رئيس التحرير']);
+        $role4=Role::create(['name' =>'كاتب']);
+        $role5=Role::create(['name' =>'مشترك']);
+        $role6=Role::create(['name' =>'رئيس قسم']);
 
         $permissions[]=Permission::create(['name' => 'الاقسام']);
         $permissions[]=Permission::create(['name' => 'انشاء قسم']);
@@ -48,8 +48,13 @@ class DatabaseSeeder extends Seeder
         $permissions[]=Permission::create(['name' => 'انشاء كاتب']);
         $permissions[]=Permission::create(['name' => 'تعديل الموقع']);
         $permissions[]=Permission::create(['name' => 'مقالاتي']);
+        $permissions[]=Permission::create(['name' => 'اقسامي']);
         $permissions[]=Permission::create(['name' => 'حذف مستخدم من القسم']);
+        $permissions[]=Permission::create(['name' => 'حذف الكاتب من القسم']);
         $permissions[]=Permission::create(['name' => 'تعيين كاتب في القسم']);
+        $permissions[]=Permission::create(['name' => 'انشاء كاتب في القسم']);
+        $permissions[]=Permission::create(['name' => 'الكتاب في القسم']);
+        $permissions[]=Permission::create(['name' => 'المقالات في القسم']);
 
         Category::create(['name'=>'رياضة']);
         Category::create(['name'=>'فن']);
@@ -67,50 +72,50 @@ class DatabaseSeeder extends Seeder
         ];
          $user=User::create($data);
          $user->assignRole($role1);
-        // for ($i=0; $i <200 ; $i++) {
-        // $data= [
-        //     'name' => 'Mohamed Frouh'.$i,
-        //     'email' => 'mohamedfrouh'.$i.'@example.com',
-        //     'email_verified_at' => now(),
-        //     'status'=>'active',
-        //     'password' => bcrypt('12345678'),
-        //     'remember_token' => Str::random(10),
-        // ];
-        //  $user=User::create($data);
-        // if ($i==0) {
-        //     $user->assignRole($role1);
-        // }
-        // if ($i==1) {
-        //     $user->assignRole($role2);
-        // }
-        // if ($i!=1 && $i<100) {
-        //     $user->assignRole($role3);
-        //     $user->categories()->sync([rand(1,6)]);
-        // }
-        // if ($i>=100) {
-        //     $user->assignRole($role4);
-        // }
-        // }
+        for ($i=0; $i <200 ; $i++) {
+        $data= [
+            'name' => 'Mohamed Frouh'.$i,
+            'email' => 'mohamedfrouh'.$i.'@example.com',
+            'email_verified_at' => now(),
+            'status'=>'active',
+            'password' => bcrypt('12345678'),
+            'remember_token' => Str::random(10),
+        ];
+         $user=User::create($data);
+        if ($i==1) {
+            $user->assignRole($role2);
+        }
+        if ($i==2) {
+            $user->assignRole($role3);
+        }
+        if ($i!=2 && $i<100) {
+            $user->assignRole($role4);
+            $user->categories()->sync([rand(1,6)]);
+        }
+        if ($i>=100) {
+            $user->assignRole($role5);
+        }
+        }
 
-        // Tag::create(['name'=>'name1']);
-        // Tag::create(['name'=>'name2']);
-        // Tag::create(['name'=>'name3']);
-        // Tag::create(['name'=>'name4']);
-        // Tag::create(['name'=>'name5']);
-        // for ($i=1; $i < 501; $i++) {
-        // $dataarticle= [
-        //     'image' => 'storage/articles/1.png',
-        //     'title' => 'Article '.$i,
-        //     'slug' => 'Article_'.$i,
-        //     'status'=>'publish',
-        //     'content' => 'Article_'.$i,
-        //     'user_id' =>rand(2,99),
-        // ];
-        // $article=Article::create($dataarticle);
-        // $article->categories()->sync([rand(1,6)]);
-        // $article->tags()->sync([rand(1,5)]);
+        Tag::create(['name'=>'name1']);
+        Tag::create(['name'=>'name2']);
+        Tag::create(['name'=>'name3']);
+        Tag::create(['name'=>'name4']);
+        Tag::create(['name'=>'name5']);
+        for ($i=1; $i < 501; $i++) {
+        $dataarticle= [
+            'image' => 'storage/articles/1.png',
+            'title' => 'Article '.$i,
+            'slug' => 'Article_'.$i,
+            'status'=>'publish',
+            'content' => 'Article_'.$i,
+            'user_id' =>rand(2,99),
+        ];
+        $article=Article::create($dataarticle);
+        $article->categories()->sync([rand(1,6)]);
+        $article->tags()->sync([rand(1,5)]);
 
-        // }
+        }
 
 
 

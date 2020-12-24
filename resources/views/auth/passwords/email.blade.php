@@ -1,4 +1,5 @@
 @extends('layouts.master2')
+<title>نسيت كلمة السر</title>
 @section('css')
 <!-- Sidemenu-respoansive-tabs css -->
 <link href="{{URL::asset('assets/plugins/sidemenu-responsive-tabs/css/sidemenu-responsive-tabs.css')}}" rel="stylesheet">

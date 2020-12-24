@@ -38,7 +38,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $users=User::role('كاتب')->get();
+        $users=User::role(['رئيس قسم','كاتب'])->orderby('name','desc')->get();
         return view('Backend.categories.create',compact('users'));
     }
     public function active(Request $request)
@@ -108,7 +108,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        $users=User::role('كاتب')->get();
+        $users=User::role(['رئيس قسم','كاتب'])->orderby('name','desc')->get();
         return view('Backend.categories.edit',compact('category','users'));
     }
 
@@ -127,6 +127,7 @@ class CategoryController extends Controller
             'status'=>'required|in:active,inactive',
             'user_id'=>'required'
         ]);
+        $user1=User::find($category->user_id);
         $category->name=$request->name;
         if ($request->image) {
             $category->image=sorteimage('storage/categories/',$request->image);
@@ -135,6 +136,7 @@ class CategoryController extends Controller
         $category->user_id=$request->user_id;
         $category->save();
         $user=User::find($request->user_id);
+        $user1->syncRoles('كاتب');
         $user->syncRoles('رئيس قسم');
         return redirect('/categories')->with('success','تم تعديل القسم بنجاح');
     }
