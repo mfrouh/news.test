@@ -68,7 +68,7 @@
                                     <a class="btn btn-success btn-sm" href="/articles/{{$article->id}}"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                     @endcan
                                     @can('تعديل مقال')
-                                    <a class="btn btn-primary btn-sm" href="/articles/{{$category->id}}/edit"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                                    <a class="btn btn-primary btn-sm" href="/articles/{{$article->id}}/edit"><i class="fa fa-edit" aria-hidden="true"></i></a>
                                     @endcan
                                     @can('حذف مقال')
                                     <a class="btn btn-danger btn-sm"  href="/articles/{{$article->id}}"

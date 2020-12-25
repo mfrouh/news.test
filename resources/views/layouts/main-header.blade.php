@@ -32,11 +32,11 @@
 												<i class="la la-file-alt text-white"></i>
 											</div>
 											<div class="mr-3">
-												<h5 class="notification-label mb-1">{{$notification['data']}}</h5>
-												<div class="notification-subtext">{{$notification['created_at']}}</div>
+												<h5 class="notification-label mb-1">{{$notification['data']['content']}}</h5>
+												<div class="notification-subtext">{{$notification['created_at']->format('d-m  h:m A')}}</div>
 											</div>
 											<div class="mr-auto" >
-												<i class="las la-angle-left text-left text-muted"></i>
+												<i class="fa fa-markdown text-left text-muted"></i>
 											</div>
                                         </a>
                                         @empty

@@ -16,7 +16,7 @@
 		<div class="main-error-wrapper  page page-h ">
 			<img src="{{URL::asset('assets/img/media/404.png')}}" class="error-page" alt="error">
 			<h2>هذه الصفحة غير موجودة</h2>
-			<a class="btn btn-outline-danger" href="{{url()->previous()}}">العودة الي الصفحة السابقة</a>
+			<a class="btn btn-outline-danger" href="{{'/dashboard'}}">العودة الي الصفحة الرئيسية</a>
 		</div>
 		<!-- /Main-error-wrapper -->
 @endsection

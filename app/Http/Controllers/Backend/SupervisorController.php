@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\Category;
 use App\Models\User;
+use App\Notifications\WelcomeNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -65,6 +66,7 @@ class SupervisorController extends Controller
          $user = User::create($input);
          $user->syncRoles('كاتب');
          $user->categories()->sync($request->categories);
+         $user->notify(new WelcomeNotification());
          return back()
          ->with('success','تم اضافة الكاتب بنجاح');
     }

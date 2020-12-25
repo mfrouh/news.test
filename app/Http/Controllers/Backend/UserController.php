@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\User;
+use App\Notifications\WelcomeNotification;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -84,6 +85,7 @@ public function storewrite(Request $request)
      $user = User::create($input);
      $user->syncRoles('كاتب');
      $user->categories()->sync($request->categories);
+     $user->notify(new WelcomeNotification());
      return redirect('/writers')
      ->with('success','تم اضافة الكاتب بنجاح');
 }

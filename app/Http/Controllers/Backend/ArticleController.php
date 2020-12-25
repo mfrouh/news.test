@@ -98,7 +98,7 @@ class ArticleController extends Controller
             $Ttags[]= $Ftag->id;
         }
         $article->tags()->sync($Ttags);
-        return redirect('/articles')->with('success','تم انشاء المقال بنجاح');
+        return back()->with('success','تم انشاء المقال بنجاح');
     }
 
     /**
@@ -120,7 +120,13 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-       return view('Backend.articles.edit',compact('article'));
+        if ($article->user_id==auth()->user()->id) {
+          return view('Backend.articles.edit',compact('article'));
+        }
+        else
+        {
+            return abort('403');
+        }
     }
 
     /**
@@ -156,7 +162,7 @@ class ArticleController extends Controller
             $Ttags[]= $Ftag->id;
         }
         $article->tags()->sync($Ttags);
-        return redirect('/articles')->with('success','تم تعديل المقال بنجاح');
+        return back()->with('success','تم تعديل المقال بنجاح');
     }
 
     /**
@@ -167,7 +173,13 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        $article->delete();
-        return back()->with('success','تم حذف المقال بنجاح');
+        if ($article->user_id==auth()->user()->id) {
+            $article->delete();
+            return back()->with('success','تم حذف المقال بنجاح');
+          }
+          else
+          {
+              return abort('403');
+          }
     }
 }
