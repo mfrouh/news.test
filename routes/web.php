@@ -19,6 +19,7 @@ Route::resource('/permissions','Backend\PermissionController');
 Route::resource('/users','Backend\UserController');
 Route::resource('/categories','Backend\CategoryController');
 Route::resource('/articles','Backend\ArticleController');
+Route::resource('/votes','Backend\VoteController');
 Route::post('/role_permissions','Backend\RoleController@role_permissions');
 Route::post('/user_permissions','Backend\UserController@user_permissions');
 // setting website
@@ -50,6 +51,8 @@ Route::get('/categories/writers/create','Backend\SupervisorController@createwrit
 Route::post('/categories/writers','Backend\SupervisorController@storewrite');
 Route::post('/articles/publish','Backend\ArticleController@publish');
 Route::post('/articles/unpublish','Backend\ArticleController@unpublish');
+Route::post('/votes/publish','Backend\VoteController@publish');
+Route::post('/votes/unpublish','Backend\VoteController@unpublish');
 
 Auth::routes();
 Route::get('/{page}','Backend\SettingController@style');

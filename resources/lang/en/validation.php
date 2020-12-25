@@ -181,5 +181,12 @@ return [
         'permissions'           => 'الصلاحيات',
         'image'                 => 'الصورة',
         'categories'            => 'الاقسام',
+        'endvote'               => 'نهاية التصويت',
+        'startvote'             => 'بداية التصويت',
+        'options'               => 'الاختيارات',
+        'category_id'           => 'القسم',
+        'user_id'               => 'المستخدم',
+        'question'              => 'السؤال',
+        'role'                  => 'الوظيفة'
     ],
 ];

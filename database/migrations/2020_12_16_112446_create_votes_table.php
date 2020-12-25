@@ -18,6 +18,10 @@ class CreateVotesTable extends Migration
             $table->string('question');
             $table->foreignid('category_id');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
+            $table->dateTime('endvote');
+            $table->dateTime('startvote');
+            $table->enum('status',['publish','unpublish'])->default('unpublish');
+            $table->timestamp('published_at')->nullable();
             $table->timestamps();
         });
     }

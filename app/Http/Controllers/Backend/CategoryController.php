@@ -136,7 +136,9 @@ class CategoryController extends Controller
         $category->user_id=$request->user_id;
         $category->save();
         $user=User::find($request->user_id);
-        $user1->syncRoles('كاتب');
+        if ($user1) {
+            $user1->syncRoles('كاتب');
+        }
         $user->syncRoles('رئيس قسم');
         return redirect('/categories')->with('success','تم تعديل القسم بنجاح');
     }
