@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Backend;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Subscribers;
 use App\Models\User;
 use App\Notifications\WelcomeNotification;
 use Spatie\Permission\Models\Role;
@@ -51,9 +52,9 @@ public function supervisors()
 }
 public function subscribers()
 {
-   $users = User::role('مشترك')->orderBy('id','DESC')->get();
+   $users = Subscribers::orderBy('id','DESC')->get();
    $title='المشتركين';
-   return view('Backend.users.index',compact('users','title'));
+   return view('Backend.users.subscribers',compact('users','title'));
 }
 
 /**

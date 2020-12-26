@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\Category;
+use App\Models\Subscribers;
 use App\Models\Tag;
 use App\Models\User;
 use App\Models\Vote;
@@ -23,7 +24,7 @@ class DashboardController extends Controller
       $writers=User::role('كاتب')->count();
       $users=User::count();
       $supervisors=User::role('رئيس قسم')->count();
-      $subscribers=User::role('مشترك')->count();
+      $subscribers=Subscribers::count();
       $articles=Article::count();
       $pubarticles=Article::publish()->count();
       $unpubarticles=Article::unpublish()->count();

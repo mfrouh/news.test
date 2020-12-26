@@ -10,6 +10,9 @@ class Article extends Model
     use HasFactory;
 
     protected $fillable=['title','slug','image','status','content','user_id'];
+
+    protected $hidden=['created_at','updated_at'];
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -17,6 +20,10 @@ class Article extends Model
     public function categories()
     {
         return $this->belongsToMany(Category::class,'article_category','article_id','category_id');
+    }
+    public function views()
+    {
+      return $this->hasMany(ArticleView::class);
     }
     public function gallery()
     {
@@ -33,6 +40,14 @@ class Article extends Model
     public function ScopeUnpublish($q)
     {
         return  $q->where('status','unpublish');
+    }
+    public function ScopeOrderD($q)
+    {
+        return  $q->orderby('publish_time','desc');
+    }
+    public function ScopeOrderA($q)
+    {
+        return  $q->orderby('publish_time','asc');
     }
     public function getstatus()
     {

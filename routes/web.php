@@ -56,3 +56,10 @@ Route::post('/votes/unpublish','Backend\VoteController@unpublish');
 
 Auth::routes();
 Route::get('/{page}','Backend\SettingController@style');
+
+Route::get('/','Frontend\MainPageController@mainpage');
+Route::get('/category/{name}','Frontend\CategorypageController@category');
+Route::get('/tag/{name}','Frontend\MultipageController@tag');
+Route::get('/search/{name}','Frontend\MultipageController@search');
+Route::get('/writer/{name}','Frontend\MultipageController@writer');
+Route::get('/date/{name}','Frontend\MultipageController@date');

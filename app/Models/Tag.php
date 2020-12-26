@@ -10,6 +10,8 @@ class Tag extends Model
     use HasFactory;
     protected $fillable=['name'];
 
+    protected $hidden=['created_at','updated_at'];
+
     public function articles()
     {
         return $this->morphedByMany(Article::class, 'taggable');

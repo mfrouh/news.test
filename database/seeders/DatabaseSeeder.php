@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Article;
 use App\Models\Category;
+use App\Models\Subscribers;
 use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -25,7 +26,6 @@ class DatabaseSeeder extends Seeder
         $role2=Role::create(['name' =>'ادمن']);
         $role3=Role::create(['name' =>'رئيس التحرير']);
         $role4=Role::create(['name' =>'كاتب']);
-        $role5=Role::create(['name' =>'مشترك']);
         $role6=Role::create(['name' =>'رئيس قسم']);
 
         $permissions[]=Permission::create(['name' => 'الاقسام']);
@@ -56,28 +56,30 @@ class DatabaseSeeder extends Seeder
         $permissions[]=Permission::create(['name' => 'الكتاب في القسم']);
         $permissions[]=Permission::create(['name' => 'المقالات في القسم']);
 
-        Category::create(['name'=>'رياضة']);
-        Category::create(['name'=>'فن']);
-        Category::create(['name'=>'سياسة']);
-        Category::create(['name'=>'اقتصاد']);
-        Category::create(['name'=>'ابراج']);
-        Category::create(['name'=>'شباب']);
+        Category::create(['name'=>'رياضة','slug'=>'رياضة']);
+        Category::create(['name'=>'فن','slug'=>'فن']);
+        Category::create(['name'=>'سياسة','slug'=>'سياسة']);
+        Category::create(['name'=>'اقتصاد','slug'=>'اقتصاد']);
+        Category::create(['name'=>'ابراج','slug'=>'ابراج']);
+        Category::create(['name'=>'شباب','slug'=>'شباب']);
         $data= [
             'name' => 'Mohamed Frouh',
             'email' => 'mohamedfrouh'.'@example.com',
             'email_verified_at' => now(),
             'status'=>'active',
+            'username'=>'mohamedfrouh4543',
             'password' => bcrypt('12345678'),
             'remember_token' => Str::random(10),
         ];
          $user=User::create($data);
          $user->assignRole($role1);
-        for ($i=0; $i <200 ; $i++) {
+        for ($i=0; $i <100 ; $i++) {
         $data= [
             'name' => 'Mohamed Frouh'.$i,
             'email' => 'mohamedfrouh'.$i.'@example.com',
             'email_verified_at' => now(),
             'status'=>'active',
+            'username'=>'mohamedfrouh'.$i,
             'password' => bcrypt('12345678'),
             'remember_token' => Str::random(10),
         ];
@@ -92,17 +94,16 @@ class DatabaseSeeder extends Seeder
             $user->assignRole($role4);
             $user->categories()->sync([rand(1,6)]);
         }
-        if ($i>=100) {
-            $user->assignRole($role5);
         }
+        for ($i=0; $i <1000 ; $i++) {
+            Subscribers::create(['email'=>"mofrouh$i@subscribers.com"]);
         }
-
         Tag::create(['name'=>'name1']);
         Tag::create(['name'=>'name2']);
         Tag::create(['name'=>'name3']);
         Tag::create(['name'=>'name4']);
         Tag::create(['name'=>'name5']);
-        for ($i=1; $i < 501; $i++) {
+        for ($i=1; $i < 1001; $i++) {
         $dataarticle= [
             'image' => 'storage/articles/1.png',
             'title' => 'Article '.$i,

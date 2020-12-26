@@ -17,6 +17,7 @@ class CreateCategoriesTable extends Migration
             $table->id();
             $table->string('image')->nullable();
             $table->string('name')->unique();
+            $table->string('slug')->unique();
             $table->foreignid('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
             $table->enum('status',['active','inactive'])->default('active');

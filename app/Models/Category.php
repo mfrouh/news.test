@@ -10,7 +10,9 @@ class Category extends Model
 {
     use HasFactory;
 
-    protected $fillable=['name','image','status'];
+    protected $fillable=['name','image','status','slug'];
+
+    protected $hidden=['created_at','updated_at'];
 
     public function votes()
     {
@@ -40,4 +42,13 @@ class Category extends Model
     {
       return  $this->status=="active"?'مفعل':'مغلق';
     }
+    // public function setSlugAttribute()
+    // {
+    //   return $this->slug=slug($this->name);
+    // }
+    // public function getSlugAttribute()
+    // {
+    //   return $this->slug;
+    // }
+
 }
