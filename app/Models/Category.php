@@ -42,13 +42,11 @@ class Category extends Model
     {
       return  $this->status=="active"?'مفعل':'مغلق';
     }
-    // public function setSlugAttribute()
-    // {
-    //   return $this->slug=slug($this->name);
-    // }
-    // public function getSlugAttribute()
-    // {
-    //   return $this->slug;
-    // }
-
+    public static function boot()
+    {
+        parent::boot();
+        static::saving(function ($model) {
+            $model->slug = slug($model->name);
+        });
+    }
 }

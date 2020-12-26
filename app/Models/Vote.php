@@ -19,4 +19,8 @@ class Vote extends Model
     {
         return $this->hasMany('App\Models\Option');
     }
+    public function voted()
+    {
+        return $this->hasMany('App\UserVoted');
+    }
 }
